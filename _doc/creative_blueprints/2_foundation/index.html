@@ -1,0 +1,54 @@
+<style>
+  .mode-landscape .sl-layout { flex-direction: row; }
+  .mode-portrait .sl-layout { flex-direction: column; }
+  .mode-landscape .sl-content { width: 58%; }
+  .mode-landscape .sl-visual { width: 42%; }
+  .mode-portrait .sl-content { width: 100%; flex: 1; }
+  .mode-portrait .sl-visual { width: 100%; height: 38%; }
+</style>
+
+<section class="w-full h-full overflow-auto bg-white">
+  <div class="sl-layout flex h-full">
+
+    <!-- Left: Problem / Solution -->
+    <div class="sl-content flex flex-col justify-center p-12 gap-9">
+
+      <!-- Problem -->
+      <div>
+        <p class="text-xs font-bold tracking-widest uppercase text-slate-400 mb-3">The Problem</p>
+        <div class="border-l-4 border-slate-300 pl-5">
+          <h2 class="text-2xl font-bold text-slate-900 mb-2 leading-snug">
+            Dogs everywhere — but no way to remember them.
+          </h2>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            You see fascinating dogs every day — at the park, on the street, at the café — but there's no quick way to identify the breed on the spot, record where you saw it, or build a personal catalogue of your encounters. Those moments just fade.
+          </p>
+        </div>
+      </div>
+
+      <!-- Solution -->
+      <div>
+        <p class="text-xs font-bold tracking-widest uppercase text-amber-600 mb-3">The Solution</p>
+        <div class="border-l-4 border-amber-500 pl-5">
+          <h2 class="text-2xl font-bold text-slate-900 mb-2 leading-snug">
+            A Pokédex for dogs — in your pocket.
+          </h2>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Dogdex lets you photograph any dog you encounter, instantly identifies the breed with AI, tags the GPS location, and adds the entry to your growing personal collection. Every dog you've ever spotted — catalogued, located, and memorable forever.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right: Visual -->
+    <div class="sl-visual relative overflow-hidden bg-amber-50">
+      <img
+        src="https://api.qb-deck.quantumbyte.ai/common/image-generation?prompt=collage%20of%20different%20dog%20breeds%20spotted%20in%20urban%20parks%20and%20city%20streets%2C%20candid%20lifestyle%20photography%2C%20warm%20tones%2C%20joyful%20encounters"
+        alt="Dogs encountered in daily life"
+        class="w-full h-full object-cover"
+      />
+    </div>
+
+  </div>
+</section>
