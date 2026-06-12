@@ -1,0 +1,68 @@
+<style>
+  .mode-landscape .sl-grid { grid-template-columns: repeat(5, 1fr); }
+  .mode-portrait .sl-grid { grid-template-columns: repeat(2, 1fr); }
+</style>
+
+<section class="w-full h-full overflow-auto bg-white">
+  <div class="flex flex-col h-full p-10">
+
+    <!-- Header row -->
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <p class="text-xs font-bold tracking-widest uppercase text-slate-400 mb-1">What It Does</p>
+        <h2 class="text-3xl font-black text-slate-900">Core Features</h2>
+      </div>
+      <span class="bg-amber-500 text-white text-xs font-semibold px-4 py-2 rounded-full">🐕 Dog Spotter</span>
+    </div>
+
+    <!-- Feature cards -->
+    <div class="sl-grid grid flex-1 gap-4">
+
+      <!-- 1: Photo Capture -->
+      <div class="bg-amber-500 rounded-2xl p-5 flex flex-col justify-between">
+        <div class="w-10 h-10 bg-white bg-opacity-20 rounded-xl flex items-center justify-center text-xl mb-3">📷</div>
+        <div>
+          <h3 class="text-white text-sm font-bold mb-1">Photo Capture</h3>
+          <p class="text-amber-100 text-xs leading-relaxed">In-app camera to snap dogs the moment you spot them.</p>
+        </div>
+      </div>
+
+      <!-- 2: AI Breed ID -->
+      <div class="bg-slate-800 rounded-2xl p-5 flex flex-col justify-between">
+        <div class="w-10 h-10 bg-white bg-opacity-10 rounded-xl flex items-center justify-center text-xl mb-3">🤖</div>
+        <div>
+          <h3 class="text-white text-sm font-bold mb-1">AI Breed ID</h3>
+          <p class="text-slate-400 text-xs leading-relaxed">Automatic breed detection with confidence score from every photo.</p>
+        </div>
+      </div>
+
+      <!-- 3: Location Tagging -->
+      <div class="bg-slate-50 rounded-2xl p-5 flex flex-col justify-between border border-slate-100">
+        <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center text-xl mb-3">📍</div>
+        <div>
+          <h3 class="text-slate-900 text-sm font-bold mb-1">Location Tagging</h3>
+          <p class="text-slate-500 text-xs leading-relaxed">GPS coordinates pinned automatically with each sighting.</p>
+        </div>
+      </div>
+
+      <!-- 4: Dogdex Collection -->
+      <div class="bg-slate-50 rounded-2xl p-5 flex flex-col justify-between border border-slate-100">
+        <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center text-xl mb-3">📋</div>
+        <div>
+          <h3 class="text-slate-900 text-sm font-bold mb-1">Dogdex Collection</h3>
+          <p class="text-slate-500 text-xs leading-relaxed">Pokédex-style list of every breed spotted — found and still undiscovered.</p>
+        </div>
+      </div>
+
+      <!-- 5: Comments & Notes -->
+      <div class="bg-slate-50 rounded-2xl p-5 flex flex-col justify-between border border-slate-100">
+        <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center text-xl mb-3">💬</div>
+        <div>
+          <h3 class="text-slate-900 text-sm font-bold mb-1">Comments & Notes</h3>
+          <p class="text-slate-500 text-xs leading-relaxed">Add personal observations, the dog's name, or encounter context to each entry.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
