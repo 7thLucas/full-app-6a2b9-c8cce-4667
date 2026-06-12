@@ -54,7 +54,8 @@ Dogdex is a dog-spotting companion app — a Pokédex for dogs, built around a s
 
 ## Strategic Principles
 
-1. **Speed of capture is critical** — from "see dog" to "logged" in under 30 seconds. Friction kills the habit.
-2. **Every interaction should feel like filling in a Pokédex entry** — satisfying, complete, collectible.
-3. **The collection view is the emotional payoff** — it must feel like a trophy case of every dog ever spotted.
-4. **Breed ID confidence matters** — show the AI's confidence score; let the user override.
+1. **Snap → Share is the heartbeat** — the entire UX is optimised around this two-step loop. Everything else serves it.
+2. **Speed of capture is critical** — from "see dog" to "shared" in under 30 seconds. Friction kills the habit.
+3. **Every interaction should feel like filling in a Pokédex entry** — satisfying, complete, collectible.
+4. **The collection view is the emotional payoff** — it must feel like a trophy case of every dog ever spotted.
+5. **Breed ID confidence matters** — show the AI's confidence score; let the user override.
