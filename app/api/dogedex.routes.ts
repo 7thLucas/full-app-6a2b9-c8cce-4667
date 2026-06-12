@@ -158,10 +158,13 @@ router.post(
   },
 );
 
-// GET /api/dogedex/sightings — list all sightings
-router.get("/dogedex/sightings", async (_req: Request, res: Response) => {
+// GET /api/dogedex/sightings — list sightings. Pass ?shared=true to only
+// return sightings the user has shared (used by the global Map tab).
+router.get("/dogedex/sightings", async (req: Request, res: Response) => {
   try {
-    const sightings = await SightingModel.find().sort({ createdAt: -1 }).lean();
+    const filter: Record<string, unknown> = {};
+    if (req.query.shared === "true") filter.shared = true;
+    const sightings = await SightingModel.find(filter).sort({ createdAt: -1 }).lean();
     return res.json({ success: true, data: sightings });
   } catch (err) {
     logger.error("List sightings failed", err);

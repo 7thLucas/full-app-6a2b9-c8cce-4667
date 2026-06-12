@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Dogedex",
-  description: "Catch 'em all — one dog at a time.",
+  description: "Gotta pat 'em all — one dog at a time.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,

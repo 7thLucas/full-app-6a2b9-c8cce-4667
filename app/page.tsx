@@ -56,7 +56,7 @@ export default function HomePage() {
             <span className="text-2xl">🐾</span>
             <div>
               <h1 className="text-lg font-bold text-doge-yellow leading-none">Dogedex</h1>
-              <p className="text-xs text-white/40">Catch &apos;em all</p>
+              <p className="text-xs text-white/40">Gotta pat &apos;em all</p>
             </div>
           </div>
           <div className="flex items-center gap-1 bg-doge-card rounded-full p-1">

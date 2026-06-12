@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import BottomNav from "@/components/BottomNav";
+import { getCurrentCoords, reverseGeocode, type Coords } from "@/lib/geo";
 
 type Step = "camera" | "preview" | "submitting" | "success";
 
@@ -19,8 +20,10 @@ export default function SnapPage() {
   const [cameraError, setCameraError] = useState<string | null>(null);
   const [notes, setNotes] = useState("");
   const [dogName, setDogName] = useState("");
-  const [location, setLocation] = useState<GeolocationCoordinates | null>(null);
+  const [location, setLocation] = useState<Coords | null>(null);
   const [locationLabel, setLocationLabel] = useState("");
+  const [locStatus, setLocStatus] = useState<"idle" | "locating" | "found" | "denied">("idle");
+  const [suggestedLabel, setSuggestedLabel] = useState<string | null>(null);
   const [result, setResult] = useState<{ id: string; breedName: string; breedConfidence: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [facingMode, setFacingMode] = useState<"environment" | "user">("environment");
@@ -51,16 +54,27 @@ export default function SnapPage() {
     };
   }, [step, startCamera]);
 
-  // Get GPS location
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => setLocation(pos.coords),
-        () => {}, // silently ignore
-        { timeout: 5000 },
-      );
+  // Auto location tagging (Instagram-style): request permission, get coords,
+  // reverse-geocode to a readable place name, and pre-fill it as a suggestion
+  // the user can accept or edit. Denial is handled gracefully (manual entry).
+  const requestLocation = useCallback(async () => {
+    setLocStatus("locating");
+    const coords = await getCurrentCoords();
+    if (!coords) {
+      setLocStatus("denied");
+      return;
     }
+    setLocation(coords);
+    const label = await reverseGeocode(coords);
+    setSuggestedLabel(label);
+    // Pre-fill the editable field only if the user hasn't typed their own.
+    setLocationLabel((prev) => (prev ? prev : label));
+    setLocStatus("found");
   }, []);
+
+  useEffect(() => {
+    requestLocation();
+  }, [requestLocation]);
 
   const snap = useCallback(() => {
     const video = videoRef.current;
@@ -113,8 +127,8 @@ export default function SnapPage() {
       if (notes) form.append("notes", notes);
       if (dogName) form.append("dogName", dogName);
       if (location) {
-        form.append("lat", String(location.latitude));
-        form.append("lng", String(location.longitude));
+        form.append("lat", String(location.lat));
+        form.append("lng", String(location.lng));
       }
       if (locationLabel) form.append("locationLabel", locationLabel);
 
@@ -293,18 +307,53 @@ export default function SnapPage() {
 
               <div>
                 <label className="text-white/60 text-xs font-medium uppercase tracking-wide">
-                  Location Label (optional)
+                  Location
                 </label>
+
+                {/* Status / suggested location chip (Instagram-style) */}
+                {locStatus === "locating" && (
+                  <p className="text-white/40 text-xs mt-1 flex items-center gap-2">
+                    <span className="w-3 h-3 border border-doge-yellow/40 border-t-doge-yellow rounded-full animate-spin inline-block" />
+                    Finding your location...
+                  </p>
+                )}
+                {locStatus === "found" && suggestedLabel && (
+                  <button
+                    type="button"
+                    onClick={() => setLocationLabel(suggestedLabel)}
+                    className="mt-1 inline-flex items-center gap-1.5 bg-doge-yellow/15 border border-doge-yellow/40 text-doge-yellow rounded-full px-3 py-1 text-xs font-medium"
+                  >
+                    📍 {suggestedLabel}
+                    {locationLabel !== suggestedLabel && (
+                      <span className="text-doge-yellow/60">· tap to use</span>
+                    )}
+                  </button>
+                )}
+                {locStatus === "denied" && (
+                  <div className="mt-1 flex items-center justify-between gap-2">
+                    <p className="text-white/40 text-xs">
+                      Location off — add one manually.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={requestLocation}
+                      className="text-doge-yellow text-xs font-medium"
+                    >
+                      Retry
+                    </button>
+                  </div>
+                )}
+
                 <input
                   type="text"
                   value={locationLabel}
                   onChange={(e) => setLocationLabel(e.target.value)}
                   placeholder="Central Park, Main Street..."
-                  className="mt-1 w-full bg-doge-card border border-white/10 rounded-lg px-3 py-2 text-white placeholder-white/30 text-sm focus:outline-none focus:border-doge-yellow/50"
+                  className="mt-2 w-full bg-doge-card border border-white/10 rounded-lg px-3 py-2 text-white placeholder-white/30 text-sm focus:outline-none focus:border-doge-yellow/50"
                 />
                 {location && (
                   <p className="text-white/30 text-xs mt-1">
-                    GPS: {location.latitude.toFixed(4)}, {location.longitude.toFixed(4)}
+                    GPS: {location.lat.toFixed(4)}, {location.lng.toFixed(4)}
                   </p>
                 )}
               </div>
@@ -415,7 +464,7 @@ export default function SnapPage() {
                   setCapturedUrl(null);
                   setNotes("");
                   setDogName("");
-                  setLocationLabel("");
+                  setLocationLabel(suggestedLabel || "");
                   setResult(null);
                   setStep("camera");
                 }}
