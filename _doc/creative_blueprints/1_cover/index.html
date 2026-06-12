@@ -1,0 +1,52 @@
+<style>
+  .mode-landscape .sl-layout { flex-direction: row; }
+  .mode-portrait .sl-layout { flex-direction: column; }
+  .mode-landscape .sl-left { width: 50%; }
+  .mode-landscape .sl-right { width: 50%; }
+  .mode-portrait .sl-left { width: 100%; flex: 1; }
+  .mode-portrait .sl-right { width: 100%; height: 42%; }
+</style>
+
+<section class="w-full h-full overflow-auto bg-white">
+  <div class="sl-layout flex h-full">
+
+    <!-- Left: Content Column -->
+    <div class="sl-left flex flex-col justify-between p-12 bg-white">
+
+      <span class="inline-flex items-center gap-2 bg-amber-100 text-amber-700 text-xs font-semibold tracking-widest uppercase px-3 py-1.5 rounded-full w-fit">
+        🐕 Dog Spotting Companion
+      </span>
+
+      <div>
+        <h1 class="text-6xl font-black text-slate-900 leading-none tracking-tight mb-5">
+          Catch<br/>Every<br/><span class="text-amber-500">Breed.</span>
+        </h1>
+        <p class="text-base text-slate-600 leading-relaxed max-w-xs">
+          Photograph dogs you encounter, identify their breed with AI, pin the location, and build your personal collection — a Pokédex for dogs.
+        </p>
+      </div>
+
+      <data-attribution />
+    </div>
+
+    <!-- Right: Visual Column -->
+    <div class="sl-right relative overflow-hidden bg-amber-50">
+      <img
+        src="https://api.qb-deck.quantumbyte.ai/common/image-generation?prompt=person%20photographing%20a%20happy%20golden%20retriever%20in%20a%20sunny%20park%2C%20warm%20golden%20hour%20light%2C%20editorial%20lifestyle%20photography%2C%20joyful%20warm%20mood"
+        alt="Photographing a dog"
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-30"></div>
+      <!-- UI chip overlay -->
+      <div class="absolute bottom-8 left-5 right-5 bg-white rounded-2xl p-4 flex items-center gap-3 shadow-2xl">
+        <div class="w-9 h-9 bg-amber-500 rounded-xl flex items-center justify-center flex-shrink-0 text-base">🐕</div>
+        <div class="flex-1 min-w-0">
+          <p class="text-slate-900 text-sm font-bold truncate">Golden Retriever</p>
+          <p class="text-slate-400 text-xs mt-0.5">📍 Riverside Park · Sighting #47</p>
+        </div>
+        <span class="flex-shrink-0 bg-amber-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg">Logged ✓</span>
+      </div>
+    </div>
+
+  </div>
+</section>
