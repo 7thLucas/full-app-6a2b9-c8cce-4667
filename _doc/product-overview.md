@@ -33,11 +33,12 @@ Dogdex is a dog-spotting companion app — a Pokédex for dogs, built around a s
 
 | # | Feature | Description |
 |---|---------|-------------|
-| 1 | **Photo Capture** | In-app camera to photograph dogs encountered in the wild. |
-| 2 | **AI Breed Identification** | Automatic breed detection from the captured photo, with confidence score. |
-| 3 | **Location Tagging** | GPS coordinates recorded automatically with each sighting. |
-| 4 | **Dogdex Collection** | A running, Pokédex-style catalogue of all breeds spotted — showing what's been found and what remains to be discovered. |
-| 5 | **Comments & Notes** | Per-entry commenting for personal observations, the dog's name (if learned), or encounter context. |
+| 1 | **Photo Capture (Snap)** | In-app camera to photograph dogs encountered in the wild — the trigger for the whole loop. |
+| 2 | **Share Sighting** | Instantly share the encounter — broadcasts the sighting and adds it to the personal Dogdex simultaneously. |
+| 3 | **AI Breed Identification** | Automatic breed detection from the captured photo, with confidence score. |
+| 4 | **Location Tagging** | GPS coordinates recorded automatically with each sighting. |
+| 5 | **Dogdex Collection** | A running, Pokédex-style catalogue of all breeds spotted — showing what's been found and what remains to be discovered. |
+| 6 | **Comments & Notes** | Per-entry commenting for personal observations, the dog's name (if learned), or encounter context. |
 
 ---
 
