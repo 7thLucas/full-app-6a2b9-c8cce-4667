@@ -1,0 +1,42 @@
+{
+  "name": "dogedex",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch server.ts",
+    "build": "next build",
+    "start": "NODE_ENV=production tsx server.ts",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
+    "@types/multer": "^1.4.13",
+    "autoprefixer": "^10.5.0",
+    "axios": "^1.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.4.2",
+    "express": "^4.21.2",
+    "form-data": "^4.0.4",
+    "glob": "^13.0.6",
+    "mongoose": "^8.14.2",
+    "multer": "^1.4.5-lts.2",
+    "next": "15.3.3",
+    "postcss": "^8.5.15",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tsx": "^4.19.4",
+    "typescript": "^5"
+  },
+  "workspaces": [
+    "modules/*"
+  ]
+}

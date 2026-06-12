@@ -1,0 +1,14 @@
+[
+  {
+    "name": "uploader",
+    "type": "scaffold",
+    "status": "injected",
+    "path": "modules/uploader"
+  },
+  {
+    "name": "agentic",
+    "type": "scaffold",
+    "status": "injected",
+    "path": "modules/agentic"
+  }
+]
