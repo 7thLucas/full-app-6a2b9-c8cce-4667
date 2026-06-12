@@ -25,16 +25,17 @@ Dogedex is a dog-spotting companion app — a Pokédex for dogs, built around a 
 
 ---
 
-## Core Features (MVP)
+## Core Features
 
 | # | Feature | Description |
 |---|---------|-------------|
 | 1 | **Photo Capture (Snap)** | In-app camera to photograph dogs encountered in the wild — the trigger for the whole loop. |
 | 2 | **Share Sighting** | Instantly share the encounter — broadcasts the sighting and adds it to the personal Dogedex simultaneously. |
 | 3 | **AI Breed Identification** | Automatic breed detection from the captured photo, with confidence score. |
-| 4 | **Location Tagging** | GPS coordinates recorded automatically with each sighting. |
+| 4 | **Smart Location Tagging** | On capture, the app asks for location permission and auto-suggests a readable place name from GPS (Instagram-style) — the user confirms or edits it. Both the coordinates and the place label are stored. Saving is never blocked if permission is declined. |
 | 5 | **Dogedex Collection** | A running, Pokédex-style catalogue of all breeds spotted — showing what's been found and what remains to be discovered. |
 | 6 | **Comments & Notes** | Per-entry commenting for personal observations, the dog's name (if learned), or encounter context. |
+| 7 | **Global Sightings Map** | A dedicated map tab showing recent shared sightings from dog lovers worldwide as pins — tap a pin for the dog's photo, breed, and place, and jump to the full sighting. Only shared sightings appear. |
 
 ---
 
