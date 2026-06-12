@@ -12,9 +12,11 @@ Dogdex is a personal dog-spotting companion app — a Pokédex for dogs. It lets
 
 ## Users & Audience
 
-**Primary user**: Dog enthusiasts and hobbyists who enjoy spotting, identifying, and cataloguing different dog breeds they encounter — on walks, in parks, on city streets, at cafés. Casual to passionate dog lovers who want a structured, satisfying way to record their sightings.
+**Primary user**: Every dog lover in the world — anyone who encounters dogs in daily life (on walks, in parks, on city streets, at cafés) and wants a satisfying, structured way to identify breeds, remember where they saw them, and build a growing personal collection. The appeal is universal: casual dog admirers through to devoted breed enthusiasts.
 
-**Archetype**: Hobbyist — personal project, no commercial pressure. The joy is in the hunt and the completeness of the collection.
+**Ambition**: Mass-market consumer app — the joy and completeness of a personal Dogdex for anyone who loves dogs, anywhere on the planet.
+
+**Archetype**: Consumer hobbyist with global reach — the experience is deeply personal (your collection, your sightings) but the audience is everyone who loves dogs.
 
 ---
 
