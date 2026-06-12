@@ -6,7 +6,7 @@
 
 ## What It Is
 
-Dogdex is a personal dog-spotting companion app — a Pokédex for dogs. It lets users photograph dogs they encounter in daily life, automatically identify the breed using AI, tag the GPS location of the sighting, and build a growing personal collection of every dog ever spotted. Each entry in the collection can hold personal comments and notes, making every encounter memorable and catalogued.
+Dogdex is a dog-spotting companion app — a Pokédex for dogs, built around a single core loop: **Snap → Share**. Users photograph dogs they encounter, instantly identify the breed with AI, tag the GPS location, and share the sighting — adding it to their personal collection and broadcasting the encounter to fellow dog lovers. Every entry can hold personal comments and notes. The experience is personal (your Dogdex, your collection) and social (share the joy with every dog lover in the world).
 
 ---
 
