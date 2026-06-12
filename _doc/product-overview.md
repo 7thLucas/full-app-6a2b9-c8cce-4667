@@ -18,7 +18,7 @@ Dogedex is a dog-spotting companion app — a Pokédex for dogs, built around a 
 
 ## Positioning
 
-- **Tagline**: Catch 'em all — one dog at a time.
+- **Tagline**: Gotta pat 'em all — one dog at a time.
 - **Concept parallel**: Pokédex for dogs — the satisfaction of a new entry being filled in and the thrill of an ever-growing collection.
 - **Brand feeling**: Warm, playful, slightly nerdy in the best way. The "got it!" moment when a new breed is identified and added to the Dogedex.
 - **Tone**: Joyful, clean, personal. Not clinical — this is about the love of dogs and the delight of discovery.
