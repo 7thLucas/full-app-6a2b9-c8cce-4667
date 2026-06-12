@@ -44,9 +44,10 @@ Dogdex is a dog-spotting companion app — a Pokédex for dogs, built around a s
 
 ## Scope Boundaries (V1)
 
-- One complete "dog encounter" = photo + AI breed ID + location tag + notes = one Dogdex entry
-- Personal / local-first — no social or sharing features in V1
-- No user accounts or multi-device sync in V1
+- One complete "dog encounter" = photo + share + AI breed ID + location tag + notes = one Dogdex entry
+- **Snap → Share is the primary V1 loop** — sharing is a first-class action, not a future add-on
+- Audience is global: every dog lover, not a closed personal diary
+- No user accounts or multi-device sync in V1 (sharing is lightweight, not full social network)
 - Breed identification accuracy is shown with a confidence score so the user can correct it if needed
 
 ---
