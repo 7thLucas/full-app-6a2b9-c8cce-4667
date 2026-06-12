@@ -1,0 +1,1 @@
+I want to build an app that is like a Pokedex but for dogs. It should enable me to photograph dogs that I see, identify their breed, tag their location, and have a running list like a Pokedex. I also want to be able to comment on each photo I snap.
