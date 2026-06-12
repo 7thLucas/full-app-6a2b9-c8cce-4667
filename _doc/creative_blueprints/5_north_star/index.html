@@ -1,0 +1,103 @@
+<section class="w-full h-full overflow-auto bg-white">
+  <div class="flex flex-col h-full p-10">
+
+    <!-- Header -->
+    <div class="flex items-start justify-between mb-5">
+      <div>
+        <p class="text-xs font-bold tracking-widest uppercase text-slate-400 mb-1">North Star Metric</p>
+        <h2 class="text-3xl font-black text-slate-900">Weekly Verified Operations</h2>
+      </div>
+      <span class="bg-amber-100 text-amber-700 text-xs font-semibold px-3 py-1.5 rounded-full flex-shrink-0">
+        Projected impact — based on your inputs
+      </span>
+    </div>
+
+    <!-- Three columns -->
+    <div class="flex flex-1 gap-4">
+
+      <!-- Col 1: Operation definition -->
+      <div class="flex-1 bg-slate-50 rounded-2xl p-5 border border-slate-100 flex flex-col">
+        <p class="text-xs font-bold tracking-widest uppercase text-slate-400 mb-3">Verified Operation</p>
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-9 h-9 bg-amber-500 rounded-xl flex items-center justify-center text-white text-sm flex-shrink-0">🐕</span>
+          <p class="text-slate-900 text-sm font-bold">Dog Encounter Logged</p>
+        </div>
+        <p class="text-slate-600 text-xs leading-relaxed mb-4">
+          A single sighting completed in the app: photo captured → breed identified by AI → location tagged → entry saved to the Dogdex collection.
+        </p>
+        <div class="space-y-2 mt-auto">
+          <div class="flex items-center gap-2 text-xs text-slate-600">
+            <span class="w-5 h-5 bg-amber-100 rounded text-amber-700 flex items-center justify-center font-bold flex-shrink-0">✓</span>
+            Photo taken in-app
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-600">
+            <span class="w-5 h-5 bg-amber-100 rounded text-amber-700 flex items-center justify-center font-bold flex-shrink-0">✓</span>
+            Breed identified by AI
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-600">
+            <span class="w-5 h-5 bg-amber-100 rounded text-amber-700 flex items-center justify-center font-bold flex-shrink-0">✓</span>
+            GPS location tagged
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-600">
+            <span class="w-5 h-5 bg-amber-100 rounded text-amber-700 flex items-center justify-center font-bold flex-shrink-0">✓</span>
+            Saved to collection
+          </div>
+        </div>
+      </div>
+
+      <!-- Col 2: WVO formula -->
+      <div class="flex-1 bg-slate-50 rounded-2xl p-5 border border-slate-100 flex flex-col">
+        <p class="text-xs font-bold tracking-widest uppercase text-slate-400 mb-3">Weekly Volume Formula</p>
+
+        <div class="bg-white rounded-xl p-3 border border-amber-200 mb-2">
+          <p class="text-xs text-amber-700 font-semibold mb-1">Assumption — adjust this</p>
+          <p class="text-slate-700 text-xs font-semibold mb-0.5">Outings per week</p>
+          <p class="text-3xl font-black text-slate-900 leading-none">3</p>
+          <p class="text-xs text-slate-400 mt-1">walks, park visits, or outings where you encounter dogs</p>
+        </div>
+
+        <div class="text-slate-400 text-center text-sm font-black py-1">×</div>
+
+        <div class="bg-white rounded-xl p-3 border border-amber-200 mb-3">
+          <p class="text-xs text-amber-700 font-semibold mb-1">Assumption — adjust this</p>
+          <p class="text-slate-700 text-xs font-semibold mb-0.5">New encounters per outing</p>
+          <p class="text-3xl font-black text-slate-900 leading-none">2</p>
+          <p class="text-xs text-slate-400 mt-1">new dogs photographed and logged each outing</p>
+        </div>
+
+        <div class="bg-amber-500 rounded-xl p-3 mt-auto">
+          <p class="text-amber-100 text-xs font-semibold mb-1">= Weekly Verified Operations</p>
+          <p class="text-white text-3xl font-black leading-none">6 / week</p>
+        </div>
+      </div>
+
+      <!-- Col 3: Value / time saved -->
+      <div class="flex-1 bg-slate-800 rounded-2xl p-5 flex flex-col">
+        <p class="text-xs font-bold tracking-widest uppercase text-slate-400 mb-3">Time Reclaimed</p>
+
+        <div class="space-y-3 mb-3">
+          <div class="bg-slate-700 rounded-xl p-3">
+            <p class="text-slate-400 text-xs mb-1">Without Dogdex (manual Google + notes)</p>
+            <p class="text-white text-base font-bold">~5 min / encounter</p>
+          </div>
+          <div class="bg-slate-700 rounded-xl p-3">
+            <p class="text-slate-400 text-xs mb-1">With Dogdex (photo to fully logged)</p>
+            <p class="text-white text-base font-bold">~30 sec / encounter</p>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-700 pt-3 mb-3">
+          <p class="text-slate-400 text-xs mb-1">6 encounters × 4.5 min saved</p>
+          <p class="text-amber-400 text-lg font-black">27 min saved / week</p>
+        </div>
+
+        <div class="bg-amber-500 rounded-xl p-4 mt-auto">
+          <p class="text-amber-100 text-xs mb-1">Annual time reclaimed</p>
+          <p class="text-white text-3xl font-black leading-none">~23 hrs / year</p>
+          <p class="text-amber-100 text-xs mt-1.5">27 min × 52 weeks = 1,404 min</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
