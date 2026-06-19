@@ -1,0 +1,85 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap');
+  .fg{
+    --paper:oklch(0.97 0.015 85);--paper2:oklch(0.935 0.024 82);--paper3:oklch(0.90 0.032 80);
+    --ink:oklch(0.24 0.02 60);--ink2:oklch(0.44 0.02 62);--ink3:oklch(0.60 0.018 64);
+    --ball:oklch(0.86 0.18 128);--ballink:oklch(0.34 0.09 132);
+    --coral:oklch(0.72 0.17 25);--sky:oklch(0.70 0.13 240);--gold:oklch(0.82 0.13 85);
+    --line:oklch(0.85 0.022 72);
+    font-family:'Hanken Grotesk',ui-sans-serif,system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  }
+  .fg *{box-sizing:border-box;}
+  .grain{position:absolute;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(oklch(0.24 0.02 60/0.06) 1px,transparent 1.4px);
+    background-size:5px 5px;mix-blend-mode:multiply;}
+  .display{font-family:'Baloo 2',ui-rounded,system-ui,sans-serif;font-weight:800;letter-spacing:-0.015em;line-height:0.95;}
+  .kick{font-weight:700;text-transform:uppercase;letter-spacing:0.24em;font-size:0.62rem;}
+  .sw{border-radius:0.7rem;padding:0.6rem;display:flex;flex-direction:column;justify-content:flex-end;aspect-ratio:1.15;border:2px solid oklch(0.24 0.02 60/0.12);}
+  .mode-landscape .sl-body{flex-direction:row;}
+  .mode-portrait .sl-body{flex-direction:column;}
+  .mode-landscape .sl-main{width:60%;}
+  .mode-landscape .sl-side{width:40%;}
+  .mode-portrait .sl-main,.mode-portrait .sl-side{width:100%;}
+</style>
+
+<section class="fg w-full h-full overflow-auto relative">
+  <div class="grain"></div>
+  <div class="flex flex-col h-full relative" style="z-index:1;padding:clamp(1.8rem,3.2vw,2.8rem);">
+
+    <!-- Header -->
+    <div class="mb-4">
+      <span class="kick" style="color:var(--ink3);">Design Direction · Pl. 08</span>
+      <h2 class="display" style="font-size:clamp(2rem,3.6vw,3.2rem);margin-top:0.3rem;">The Field Guide Arcade</h2>
+      <p style="font-size:0.88rem;color:var(--ink2);line-height:1.55;max-width:76ch;margin-top:0.5rem;">
+        A sun-bright collector's almanac that behaves like a reward machine. The page reads like a well-loved field guide; the moments react like an arcade. Light mode is home, daylight is the brand.
+      </p>
+    </div>
+
+    <div class="sl-body flex flex-1 gap-4 min-h-0">
+
+      <!-- Main: palette + type -->
+      <div class="sl-main flex flex-col gap-3">
+        <!-- palette -->
+        <div>
+          <span class="kick" style="color:var(--ink3);">Color · warm paper base, OKLCH</span>
+          <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:0.5rem;margin-top:0.5rem;">
+            <div class="sw" style="background:oklch(0.97 0.015 85);"><span style="font-size:0.62rem;font-weight:800;color:var(--ink);">Bone cream</span><span style="font-size:0.52rem;color:var(--ink3);">Surface</span></div>
+            <div class="sw" style="background:oklch(0.24 0.02 60);"><span style="font-size:0.62rem;font-weight:800;color:var(--paper);">Wet nose</span><span style="font-size:0.52rem;color:oklch(0.7 0.02 64);">Ink</span></div>
+            <div class="sw" style="background:oklch(0.86 0.18 128);"><span style="font-size:0.62rem;font-weight:800;color:var(--ballink);">Tennis ball</span><span style="font-size:0.52rem;color:var(--ballink);opacity:0.8;">Primary</span></div>
+            <div class="sw" style="background:oklch(0.72 0.17 25);"><span style="font-size:0.62rem;font-weight:800;color:#fff;">Tongue coral</span><span style="font-size:0.52rem;color:#fff;opacity:0.85;">Secondary</span></div>
+            <div class="sw" style="background:oklch(0.70 0.13 240);"><span style="font-size:0.62rem;font-weight:800;color:#fff;">Sky-walk</span><span style="font-size:0.52rem;color:#fff;opacity:0.85;">Tertiary</span></div>
+            <div class="sw" style="background:linear-gradient(135deg,oklch(0.90 0.09 92),oklch(0.82 0.13 85) 45%,oklch(0.94 0.06 96) 56%,oklch(0.80 0.13 84));"><span style="font-size:0.62rem;font-weight:800;color:var(--ink);">Good-boy gold</span><span style="font-size:0.52rem;color:var(--ink);opacity:0.75;">Reward</span></div>
+          </div>
+          <p style="font-size:0.7rem;color:var(--ink3);margin-top:0.5rem;">Color carries identity, not one timid accent. Big saturated fields are intentional.</p>
+        </div>
+
+        <!-- type specimen -->
+        <div style="background:var(--ink);border-radius:1rem;padding:1.1rem;flex:1;display:flex;flex-direction:column;justify-content:center;">
+          <span class="kick" style="color:oklch(0.6 0.02 64);">Type · strong scale jumps (≥1.33)</span>
+          <p class="display" style="font-size:clamp(1.8rem,3.5vw,2.8rem);color:var(--paper);margin-top:0.5rem;">New entry! <span style="color:var(--ball);">+1 breed</span></p>
+          <p style="font-size:0.82rem;color:oklch(0.72 0.02 64);line-height:1.5;margin-top:0.5rem;max-width:60ch;">
+            <span style="color:var(--gold);font-weight:700;">Baloo 2</span> chunky rounded display for the loud moments. <span style="color:var(--ball);font-weight:700;">Hanken Grotesk</span> humanist sans for body and metadata. A finished entry shouts, the notes whisper.
+          </p>
+        </div>
+      </div>
+
+      <!-- Side: anti-refs + texture/motion -->
+      <div class="sl-side flex flex-col gap-3">
+        <div style="background:var(--paper2);border:2.5px solid var(--coral);border-radius:1rem;padding:1rem;">
+          <span class="kick" style="color:var(--coral);">Never look like</span>
+          <ul style="margin-top:0.6rem;display:flex;flex-direction:column;gap:0.5rem;">
+            <li style="display:flex;gap:0.5rem;font-size:0.78rem;color:var(--ink2);line-height:1.4;"><span style="color:var(--coral);font-weight:800;">✕</span>Soft pastel &ldquo;puppy app&rdquo; with paw-print confetti as decoration</li>
+            <li style="display:flex;gap:0.5rem;font-size:0.78rem;color:var(--ink2);line-height:1.4;"><span style="color:var(--coral);font-weight:800;">✕</span>Retro 8-bit GameBoy pixel skin, the obvious Pokédex costume</li>
+            <li style="display:flex;gap:0.5rem;font-size:0.78rem;color:var(--ink2);line-height:1.4;"><span style="color:var(--coral);font-weight:800;">✕</span>Clinical white SaaS with a tidy card grid</li>
+          </ul>
+        </div>
+        <div style="background:var(--paper2);border:2px solid var(--line);border-radius:1rem;padding:1rem;flex:1;">
+          <span class="kick" style="color:var(--ink3);">Texture & motion</span>
+          <p style="font-size:0.78rem;color:var(--ink2);line-height:1.5;margin-top:0.6rem;"><strong>Tactile, not flat:</strong> riso/halftone grain, die-cut sticker shadows, stamped-ink metadata. No glass, no gradient text.</p>
+          <p style="font-size:0.78rem;color:var(--ink2);line-height:1.5;margin-top:0.6rem;"><strong>Two motion tiers:</strong> loud payoffs stay rare (capture reveal, stamp-to-dex). Quiet craft is everywhere (press scale, staggered rise-in, rolling counts). Ease-out, no bounce. Respects <code style="background:var(--paper3);padding:0 0.25rem;border-radius:0.25rem;font-size:0.72rem;">prefers-reduced-motion</code>.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

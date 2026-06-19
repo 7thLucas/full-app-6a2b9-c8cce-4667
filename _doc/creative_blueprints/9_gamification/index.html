@@ -1,0 +1,87 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap');
+  .fg{
+    --paper:oklch(0.97 0.015 85);--paper2:oklch(0.935 0.024 82);--paper3:oklch(0.90 0.032 80);
+    --ink:oklch(0.24 0.02 60);--ink2:oklch(0.44 0.02 62);--ink3:oklch(0.60 0.018 64);
+    --ball:oklch(0.86 0.18 128);--ballink:oklch(0.34 0.09 132);
+    --coral:oklch(0.72 0.17 25);--sky:oklch(0.70 0.13 240);--gold:oklch(0.82 0.13 85);
+    --line:oklch(0.85 0.022 72);
+    font-family:'Hanken Grotesk',ui-sans-serif,system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  }
+  .fg *{box-sizing:border-box;}
+  .grain{position:absolute;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(oklch(0.24 0.02 60/0.06) 1px,transparent 1.4px);
+    background-size:5px 5px;mix-blend-mode:multiply;}
+  .display{font-family:'Baloo 2',ui-rounded,system-ui,sans-serif;font-weight:800;letter-spacing:-0.015em;line-height:0.98;}
+  .kick{font-weight:700;text-transform:uppercase;letter-spacing:0.24em;font-size:0.62rem;}
+  .mech{border-radius:0.95rem;padding:0.95rem;display:flex;flex-direction:column;justify-content:space-between;}
+  .mic{width:2.2rem;height:2.2rem;border-radius:0.6rem;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+  .mode-landscape .sl-body{flex-direction:row;}
+  .mode-portrait .sl-body{flex-direction:column;}
+  .mode-landscape .sl-grid{width:64%;}
+  .mode-landscape .sl-ladder{width:36%;}
+  .mode-portrait .sl-grid,.mode-portrait .sl-ladder{width:100%;}
+</style>
+
+<section class="fg w-full h-full overflow-auto relative">
+  <div class="grain"></div>
+  <div class="flex flex-col h-full relative" style="z-index:1;padding:clamp(1.8rem,3.2vw,2.8rem);">
+
+    <!-- Header -->
+    <div class="flex items-end justify-between mb-4">
+      <div>
+        <span class="kick" style="color:var(--ink3);">The Point of Difference · Pl. 09</span>
+        <h2 class="display" style="font-size:clamp(1.9rem,3.2vw,2.8rem);margin-top:0.3rem;">Capture is a slot-pull</h2>
+      </div>
+      <span class="kick" style="color:var(--gold);border:2px solid var(--gold);border-radius:999px;padding:0.4rem 0.8rem;transform:rotate(-2deg);">The Dogedex is a trophy case</span>
+    </div>
+
+    <div class="sl-body flex flex-1 gap-4 min-h-0">
+
+      <!-- Mechanics -->
+      <div class="sl-grid grid gap-3" style="grid-template-columns:1fr 1fr;grid-auto-rows:1fr;">
+        <div class="mech" style="background:var(--ball);">
+          <div class="flex items-center justify-between"><div class="mic" style="background:oklch(0.97 0.015 85/0.5);">🎴</div><span class="display" style="color:var(--ballink);font-size:0.9rem;">flip</span></div>
+          <div><h3 class="display" style="font-size:1.05rem;color:var(--ballink);">Capture reveal</h3><p style="font-size:0.74rem;color:var(--ballink);opacity:0.9;line-height:1.4;">Snap flips a card back to front. Breed and confidence roll in like a counter settling.</p></div>
+        </div>
+        <div class="mech" style="background:var(--paper2);border:2px solid var(--line);">
+          <div class="flex items-center justify-between"><div class="mic" style="background:oklch(0.82 0.13 85/0.3);">💎</div></div>
+          <div><h3 class="display" style="font-size:1.05rem;">Rarity tiers</h3><p style="font-size:0.74rem;color:var(--ink3);line-height:1.4;">Common to legendary by global spotting frequency. Rare gets a gold foil shimmer.</p></div>
+        </div>
+        <div class="mech" style="background:var(--paper2);border:2px solid var(--line);">
+          <div class="flex items-center justify-between"><div class="mic" style="background:oklch(0.72 0.17 25/0.16);">🔖</div></div>
+          <div><h3 class="display" style="font-size:1.05rem;">Stamp-to-dex</h3><p style="font-size:0.74rem;color:var(--ink3);line-height:1.4;">A new entry lands with a rubber-stamp thunk and a short kibble-burst. Real moments only.</p></div>
+        </div>
+        <div class="mech" style="background:var(--paper2);border:2px solid var(--line);">
+          <div class="flex items-center justify-between"><div class="mic" style="background:oklch(0.72 0.17 25/0.16);">🔥</div></div>
+          <div><h3 class="display" style="font-size:1.05rem;">Streaks & milestones</h3><p style="font-size:0.74rem;color:var(--ink3);line-height:1.4;">Consecutive-day streaks. Badges at thresholds: 10 breeds, first legendary, 3 countries.</p></div>
+        </div>
+        <div class="mech" style="background:var(--ink);grid-column:span 2;flex-direction:row;align-items:center;gap:1rem;">
+          <div class="mic" style="background:var(--ball);width:2.8rem;height:2.8rem;font-size:1.4rem;flex-shrink:0;">🐾</div>
+          <div><h3 class="display" style="font-size:1.05rem;color:var(--paper);">Collection completeness</h3><p style="font-size:0.74rem;color:oklch(0.72 0.02 64);line-height:1.4;">Silhouette placeholders for un-spotted breeds, the classic &ldquo;gotta find this one&rdquo; pull. The collection view is the emotional payoff.</p></div>
+        </div>
+      </div>
+
+      <!-- Rarity ladder -->
+      <div class="sl-ladder flex flex-col" style="background:var(--paper2);border:2.5px solid var(--ink);border-radius:1.1rem;padding:1.1rem;">
+        <span class="kick" style="color:var(--ink3);">Rarity ladder</span>
+        <div class="flex flex-col gap-2 flex-1 justify-center" style="margin:0.8rem 0;">
+          <div class="flex items-center justify-between" style="background:var(--paper3);border-radius:0.6rem;padding:0.6rem 0.85rem;">
+            <span style="font-size:0.82rem;font-weight:700;color:var(--ink2);">Common</span><span style="width:0.8rem;height:0.8rem;border-radius:999px;background:var(--ink3);"></span>
+          </div>
+          <div class="flex items-center justify-between" style="background:var(--paper3);border-radius:0.6rem;padding:0.65rem 0.85rem;">
+            <span style="font-size:0.85rem;font-weight:700;color:var(--ink2);">Uncommon</span><span style="width:0.85rem;height:0.85rem;border-radius:999px;background:var(--sky);"></span>
+          </div>
+          <div class="flex items-center justify-between" style="background:var(--paper3);border-radius:0.6rem;padding:0.7rem 0.85rem;">
+            <span style="font-size:0.9rem;font-weight:800;color:var(--ink);">Rare</span><span style="width:0.9rem;height:0.9rem;border-radius:999px;background:var(--coral);"></span>
+          </div>
+          <div class="flex items-center justify-between" style="background:linear-gradient(125deg,oklch(0.90 0.09 92),oklch(0.82 0.13 85) 45%,oklch(0.94 0.06 96) 56%,oklch(0.80 0.13 84));border-radius:0.6rem;padding:0.8rem 0.85rem;box-shadow:0 6px 16px -6px var(--gold);">
+            <span class="display" style="font-size:1rem;color:var(--ink);">Legendary</span><span style="font-size:0.78rem;color:var(--ink);font-weight:700;">✨ foil</span>
+          </div>
+        </div>
+        <p style="font-size:0.76rem;color:var(--coral);font-weight:700;line-height:1.4;border-top:1.5px dashed var(--line);padding-top:0.7rem;">Every interaction should feel like filling in a Pokédex entry.</p>
+      </div>
+
+    </div>
+  </div>
+</section>

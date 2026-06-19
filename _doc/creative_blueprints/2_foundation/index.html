@@ -1,53 +1,79 @@
 <style>
-  .mode-landscape .sl-layout { flex-direction: row; }
-  .mode-portrait .sl-layout { flex-direction: column; }
-  .mode-landscape .sl-content { width: 58%; }
-  .mode-landscape .sl-visual { width: 42%; }
-  .mode-portrait .sl-content { width: 100%; flex: 1; }
-  .mode-portrait .sl-visual { width: 100%; height: 38%; }
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap');
+  .fg{
+    --paper:oklch(0.97 0.015 85);--paper2:oklch(0.935 0.024 82);--paper3:oklch(0.90 0.032 80);
+    --ink:oklch(0.24 0.02 60);--ink2:oklch(0.44 0.02 62);--ink3:oklch(0.60 0.018 64);
+    --ball:oklch(0.86 0.18 128);--ballink:oklch(0.34 0.09 132);
+    --coral:oklch(0.72 0.17 25);--sky:oklch(0.70 0.13 240);--gold:oklch(0.82 0.13 85);
+    --line:oklch(0.85 0.022 72);
+    font-family:'Hanken Grotesk',ui-sans-serif,system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  }
+  .fg *{box-sizing:border-box;}
+  .grain{position:absolute;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(oklch(0.24 0.02 60/0.06) 1px,transparent 1.4px);
+    background-size:5px 5px;mix-blend-mode:multiply;}
+  .display{font-family:'Baloo 2',ui-rounded,system-ui,sans-serif;font-weight:800;letter-spacing:-0.015em;line-height:0.98;}
+  .kick{font-weight:700;text-transform:uppercase;letter-spacing:0.24em;font-size:0.62rem;}
+  .hl{background:var(--ball);padding:0 0.1em;border-radius:0.1em;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+  .sticker{box-shadow:0 14px 30px -10px oklch(0.24 0.02 60/0.4);border:3px solid var(--paper);}
+  .mode-landscape .sl-layout{flex-direction:row;}
+  .mode-portrait .sl-layout{flex-direction:column;}
+  .mode-landscape .sl-content{width:60%;}
+  .mode-landscape .sl-visual{width:40%;}
+  .mode-portrait .sl-content{width:100%;flex:1;}
+  .mode-portrait .sl-visual{width:100%;height:34%;}
 </style>
 
-<section class="w-full h-full overflow-auto bg-white">
-  <div class="sl-layout flex h-full">
+<section class="fg w-full h-full overflow-hidden relative">
+  <div class="grain"></div>
+  <div class="sl-layout flex h-full relative" style="z-index:1;">
 
-    <!-- Left: Problem / Solution -->
-    <div class="sl-content flex flex-col justify-center p-12 gap-9">
+    <!-- Left: problem → solution -->
+    <div class="sl-content flex flex-col justify-center gap-8" style="padding:clamp(2rem,4vw,3.5rem);">
+
+      <span class="kick" style="color:var(--ink3);">The Premise · Pl. 02</span>
 
       <!-- Problem -->
       <div>
-        <p class="text-xs font-bold tracking-widest uppercase text-slate-400 mb-3">The Problem</p>
-        <div class="border-l-4 border-slate-300 pl-5">
-          <h2 class="text-2xl font-bold text-slate-900 mb-2 leading-snug">
-            Dogs everywhere — but no way to remember them.
-          </h2>
-          <p class="text-sm text-slate-600 leading-relaxed">
-            You see fascinating dogs every day — at the park, on the street, at the café — but there's no quick way to identify the breed on the spot, record where you saw it, or build a personal catalogue of your encounters. Those moments just fade.
-          </p>
-        </div>
+        <span class="kick" style="color:var(--ink3);">The gap</span>
+        <h2 class="display" style="font-size:clamp(1.6rem,2.6vw,2.3rem);margin-top:0.5rem;color:var(--ink2);">
+          Dogs everywhere, and no way to keep them.
+        </h2>
+        <p style="font-size:clamp(0.9rem,1.05vw,1rem);color:var(--ink3);line-height:1.6;max-width:54ch;margin-top:0.7rem;">
+          You meet fascinating dogs daily, at the park, on the street, outside the café. No quick way to name the breed on the spot, mark where you saw it, or grow a catalogue of your encounters. The moments just fade.
+        </p>
+      </div>
+
+      <!-- divider with paw bullet -->
+      <div class="flex items-center gap-3">
+        <span style="height:1.5px;flex:1;background:var(--line);"></span>
+        <span style="font-size:0.9rem;">🐾</span>
+        <span style="height:1.5px;flex:1;background:var(--line);"></span>
       </div>
 
       <!-- Solution -->
       <div>
-        <p class="text-xs font-bold tracking-widest uppercase text-amber-600 mb-3">The Solution</p>
-        <div class="border-l-4 border-amber-500 pl-5">
-          <h2 class="text-2xl font-bold text-slate-900 mb-2 leading-snug">
-            Snap → Share — a Pokédex for dogs, built for every dog lover.
-          </h2>
-          <p class="text-sm text-slate-600 leading-relaxed">
-            Dogedex is built around one loop: photograph a dog, instantly identify the breed with AI, tag the location, and share the sighting — adding it to your personal collection and broadcasting it to dog lovers everywhere. Every encounter captured, identified, and shared in under 30 seconds.
-          </p>
-        </div>
+        <span class="kick" style="color:var(--coral);">The fix</span>
+        <h2 class="display" style="font-size:clamp(1.7rem,2.9vw,2.6rem);margin-top:0.5rem;color:var(--ink);">
+          A Pokédex for dogs, built to <span class="hl">share.</span>
+        </h2>
+        <p style="font-size:clamp(0.9rem,1.05vw,1rem);color:var(--ink2);line-height:1.6;max-width:54ch;margin-top:0.7rem;">
+          Dogedex runs on one loop: photograph a dog, identify the breed with AI, tag the place, and share. Every sighting lands in your personal collection and broadcasts to dog lovers everywhere, in under thirty seconds.
+        </p>
       </div>
 
     </div>
 
-    <!-- Right: Visual -->
-    <div class="sl-visual relative overflow-hidden bg-amber-50">
+    <!-- Right: specimen montage -->
+    <div class="sl-visual relative overflow-hidden" style="background:var(--paper3);">
       <img
-        src="https://api.qb-deck.quantumbyte.ai/common/image-generation?prompt=collage%20of%20different%20dog%20breeds%20spotted%20in%20urban%20parks%20and%20city%20streets%2C%20candid%20lifestyle%20photography%2C%20warm%20tones%2C%20joyful%20encounters"
-        alt="Dogs encountered in daily life"
+        src="https://api.qb-deck.quantumbyte.ai/common/image-generation?prompt=candid%20collage%20of%20different%20dog%20breeds%20spotted%20on%20city%20streets%20and%20in%20parks%2C%20warm%20daylight%20lifestyle%20photography%2C%20joyful%20encounters%2C%20editorial"
+        alt="Breeds encountered across a city, candid daylight photography"
         class="w-full h-full object-cover"
       />
+      <div class="sticker" style="position:absolute;left:1.1rem;bottom:1.1rem;background:var(--paper);border-radius:999px;padding:0.45rem 0.85rem;transform:rotate(-2.5deg);">
+        <span style="font-size:0.62rem;font-weight:800;color:var(--ink);">340+ breeds to find</span>
+      </div>
     </div>
 
   </div>

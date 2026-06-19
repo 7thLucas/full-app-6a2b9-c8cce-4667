@@ -1,66 +1,92 @@
-<section class="w-full h-full overflow-auto bg-white">
-  <div class="flex flex-col h-full p-10">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap');
+  .fg{
+    --paper:oklch(0.97 0.015 85);--paper2:oklch(0.935 0.024 82);--paper3:oklch(0.90 0.032 80);
+    --ink:oklch(0.24 0.02 60);--ink2:oklch(0.44 0.02 62);--ink3:oklch(0.60 0.018 64);
+    --ball:oklch(0.86 0.18 128);--ballink:oklch(0.34 0.09 132);
+    --coral:oklch(0.72 0.17 25);--sky:oklch(0.70 0.13 240);--gold:oklch(0.82 0.13 85);
+    --line:oklch(0.85 0.022 72);
+    font-family:'Hanken Grotesk',ui-sans-serif,system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  }
+  .fg *{box-sizing:border-box;}
+  .grain{position:absolute;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(oklch(0.24 0.02 60/0.06) 1px,transparent 1.4px);
+    background-size:5px 5px;mix-blend-mode:multiply;}
+  .display{font-family:'Baloo 2',ui-rounded,system-ui,sans-serif;font-weight:800;letter-spacing:-0.015em;line-height:0.95;}
+  .kick{font-weight:700;text-transform:uppercase;letter-spacing:0.24em;font-size:0.62rem;}
+  .hl{background:var(--ball);padding:0 0.1em;border-radius:0.1em;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+  .cell{aspect-ratio:1;border-radius:0.85rem;display:flex;align-items:center;justify-content:center;position:relative;}
+  .got{background:var(--paper);border:2.5px solid var(--ink);font-size:1.5rem;box-shadow:0 6px 14px -6px oklch(0.24 0.02 60/0.35);}
+  .empty{background:var(--paper3);border:2px dashed var(--line);font-size:1.4rem;color:var(--ink3);opacity:0.5;}
+  .mode-landscape .sl-body{flex-direction:row;}
+  .mode-portrait .sl-body{flex-direction:column;}
+  .mode-landscape .sl-say{width:46%;}
+  .mode-landscape .sl-case{width:54%;}
+  .mode-portrait .sl-say,.mode-portrait .sl-case{width:100%;}
+</style>
 
-    <!-- Header -->
-    <div class="mb-6">
-      <p class="text-xs font-bold tracking-widest uppercase text-slate-400 mb-1">Why It Matters</p>
-      <h2 class="text-3xl font-black text-slate-900">The Payoff</h2>
-    </div>
+<section class="fg w-full h-full overflow-auto relative">
+  <div class="grain"></div>
+  <div class="flex flex-col h-full relative" style="z-index:1;padding:clamp(1.8rem,3.2vw,2.8rem);">
 
-    <!-- Content row -->
-    <div class="flex flex-1 gap-4">
+    <span class="kick" style="color:var(--ink3);">Why It Matters · Pl. 04</span>
 
-      <!-- Left: 2×2 metric cards -->
-      <div class="flex-1 grid grid-cols-2 grid-rows-2 gap-4">
+    <div class="sl-body flex flex-1 gap-7 min-h-0 mt-3">
 
-        <div class="bg-amber-50 rounded-2xl p-5 flex flex-col justify-between">
-          <p class="text-xs font-semibold text-amber-700 uppercase tracking-wide">Speed</p>
-          <div>
-            <p class="text-4xl font-black text-slate-900">30s</p>
-            <p class="text-xs text-slate-600 mt-1">From "see dog" to fully logged — photo, breed, location, and note.</p>
-          </div>
-        </div>
-
-        <div class="bg-slate-800 rounded-2xl p-5 flex flex-col justify-between">
-          <p class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Breed Coverage</p>
-          <div>
-            <p class="text-4xl font-black text-white">340+</p>
-            <p class="text-xs text-slate-400 mt-1">Recognised dog breeds identifiable by the AI engine.</p>
-          </div>
-        </div>
-
-        <div class="bg-slate-50 rounded-2xl p-5 flex flex-col justify-between border border-slate-100">
-          <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Zero Friction</p>
-          <div>
-            <p class="text-4xl font-black text-slate-900">1-tap</p>
-            <p class="text-xs text-slate-500 mt-1">Open app, tap camera, done. No manual lookup, no separate note app.</p>
-          </div>
-        </div>
-
-        <div class="bg-amber-500 rounded-2xl p-5 flex flex-col justify-between">
-          <p class="text-xs font-semibold text-amber-100 uppercase tracking-wide">Memory</p>
-          <div>
-            <p class="text-4xl font-black text-white">∞</p>
-            <p class="text-xs text-amber-100 mt-1">Every encounter stored — breed, location, photo, and your notes.</p>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Right: Joy factor summary -->
-      <div class="w-64 bg-slate-900 rounded-2xl p-6 flex flex-col justify-between flex-shrink-0">
+      <!-- The payoff statement -->
+      <div class="sl-say flex flex-col justify-between">
         <div>
-          <p class="text-xs font-bold tracking-widest uppercase text-slate-400 mb-3">The Joy Factor</p>
-          <h3 class="text-white text-lg font-bold leading-snug mb-4">
-            The satisfaction of a complete collection.
-          </h3>
-          <p class="text-slate-400 text-xs leading-relaxed">
-            Dogedex turns every walk into a discovery mission. The collection view is your trophy case — a record of every breed you've encountered and proof of how far your Dogedex has grown.
+          <h2 class="display" style="font-size:clamp(2.2rem,3.8vw,3.4rem);">
+            Every walk becomes a <span class="hl">discovery</span> mission.
+          </h2>
+          <p style="font-size:clamp(0.92rem,1.1vw,1.05rem);color:var(--ink2);line-height:1.6;max-width:42ch;margin-top:1rem;">
+            The collection is the emotional payoff: a trophy case of every breed you have met, and proof of how far your Dogedex has grown. Each new breed is a new entry. The hunt never ends.
           </p>
         </div>
-        <div class="border-t border-slate-700 pt-4">
-          <p class="text-amber-400 text-xs font-semibold">Each new breed = a new entry. The hunt never ends.</p>
+
+        <!-- woven facts, ruled, not hero-metric cards -->
+        <div class="flex flex-col" style="margin-top:1.5rem;">
+          <div class="flex items-baseline gap-3" style="padding:0.7rem 0;border-top:1.5px dashed var(--line);">
+            <span class="display" style="font-size:1.8rem;color:var(--coral);">~30s</span>
+            <span style="font-size:0.82rem;color:var(--ink2);">see-a-dog to shared, the whole loop.</span>
+          </div>
+          <div class="flex items-baseline gap-3" style="padding:0.7rem 0;border-top:1.5px dashed var(--line);">
+            <span class="display" style="font-size:1.8rem;color:var(--sky);">1 tap</span>
+            <span style="font-size:0.82rem;color:var(--ink2);">to capture. No lookup, no separate notes app.</span>
+          </div>
+          <div class="flex items-baseline gap-3" style="padding:0.7rem 0;border-top:1.5px dashed var(--line);border-bottom:1.5px dashed var(--line);">
+            <span class="display" style="font-size:1.8rem;color:var(--ballink);">340+</span>
+            <span style="font-size:0.82rem;color:var(--ink2);">recognised breeds waiting to be filled in.</span>
+          </div>
         </div>
+      </div>
+
+      <!-- The trophy case (collection completeness) -->
+      <div class="sl-case flex flex-col">
+        <div class="flex items-center justify-between mb-3">
+          <span class="kick" style="color:var(--ink3);">Your Dogedex</span>
+          <span style="font-size:0.7rem;font-weight:700;color:var(--ink2);">23 / 340 found</span>
+        </div>
+        <div style="flex:1;background:var(--paper2);border:2.5px solid var(--ink);border-radius:1.2rem;padding:1.1rem;display:grid;grid-template-columns:repeat(5,1fr);grid-auto-rows:1fr;gap:0.7rem;">
+          <div class="cell got">🐕</div>
+          <div class="cell got">🐩</div>
+          <div class="cell got" style="border-color:var(--coral);background:linear-gradient(125deg,oklch(0.90 0.09 92),oklch(0.82 0.13 85) 45%,oklch(0.94 0.06 96) 56%,oklch(0.80 0.13 84));">🦮<span style="position:absolute;top:-7px;right:-7px;font-size:0.7rem;">★</span></div>
+          <div class="cell empty">🐾</div>
+          <div class="cell got">🐕‍🦺</div>
+          <div class="cell empty">🐾</div>
+          <div class="cell got">🐶</div>
+          <div class="cell empty">🐾</div>
+          <div class="cell empty">🐾</div>
+          <div class="cell got">🐕</div>
+          <div class="cell got">🐩</div>
+          <div class="cell empty">🐾</div>
+          <div class="cell empty">🐾</div>
+          <div class="cell got">🐶</div>
+          <div class="cell empty">🐾</div>
+        </div>
+        <p style="font-size:0.72rem;color:var(--ink3);margin-top:0.8rem;line-height:1.5;">
+          Silhouettes mark the ones still out there. Rare breeds wear a <span style="color:var(--gold);font-weight:700;">gold foil</span> edge. That is the &ldquo;gotta find this one&rdquo; pull.
+        </p>
       </div>
 
     </div>

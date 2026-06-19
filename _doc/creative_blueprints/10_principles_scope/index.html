@@ -1,0 +1,79 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap');
+  .fg{
+    --paper:oklch(0.97 0.015 85);--paper2:oklch(0.935 0.024 82);--paper3:oklch(0.90 0.032 80);
+    --ink:oklch(0.24 0.02 60);--ink2:oklch(0.44 0.02 62);--ink3:oklch(0.60 0.018 64);
+    --ball:oklch(0.86 0.18 128);--ballink:oklch(0.34 0.09 132);
+    --coral:oklch(0.72 0.17 25);--sky:oklch(0.70 0.13 240);--gold:oklch(0.82 0.13 85);
+    --line:oklch(0.85 0.022 72);
+    font-family:'Hanken Grotesk',ui-sans-serif,system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  }
+  .fg *{box-sizing:border-box;}
+  .grain{position:absolute;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(oklch(0.24 0.02 60/0.06) 1px,transparent 1.4px);
+    background-size:5px 5px;mix-blend-mode:multiply;}
+  .display{font-family:'Baloo 2',ui-rounded,system-ui,sans-serif;font-weight:800;letter-spacing:-0.015em;line-height:0.98;}
+  .kick{font-weight:700;text-transform:uppercase;letter-spacing:0.24em;font-size:0.62rem;}
+  .prin{display:flex;gap:0.85rem;align-items:flex-start;padding:0.65rem 0;border-bottom:1.5px dashed var(--line);}
+  .pno{font-family:'Baloo 2';font-weight:800;font-size:1.5rem;color:var(--ball);line-height:1;width:1.6rem;flex-shrink:0;-webkit-text-stroke:1px var(--ballink);}
+  .mode-landscape .sl-body{flex-direction:row;}
+  .mode-portrait .sl-body{flex-direction:column;}
+  .mode-landscape .sl-prin{width:55%;}
+  .mode-landscape .sl-scope{width:45%;}
+  .mode-portrait .sl-prin,.mode-portrait .sl-scope{width:100%;}
+</style>
+
+<section class="fg w-full h-full overflow-auto relative">
+  <div class="grain"></div>
+  <div class="flex flex-col h-full relative" style="z-index:1;padding:clamp(1.8rem,3.2vw,2.8rem);">
+
+    <div class="mb-4">
+      <span class="kick" style="color:var(--ink3);">How We Build It · Pl. 10</span>
+      <h2 class="display" style="font-size:clamp(1.9rem,3.2vw,2.8rem);margin-top:0.3rem;">Principles & V1 scope</h2>
+    </div>
+
+    <div class="sl-body flex flex-1 gap-6 min-h-0">
+
+      <!-- Principles -->
+      <div class="sl-prin flex flex-col">
+        <span class="kick" style="color:var(--coral);margin-bottom:0.3rem;">Strategic principles</span>
+        <div class="prin" style="border-top:1.5px dashed var(--line);">
+          <span class="pno">1</span>
+          <div><p class="display" style="font-size:1rem;">Snap → Share is the heartbeat</p><p style="font-size:0.77rem;color:var(--ink3);">The entire UX optimises around the two-step loop. Everything else serves it.</p></div>
+        </div>
+        <div class="prin">
+          <span class="pno">2</span>
+          <div><p class="display" style="font-size:1rem;">Speed of capture is critical</p><p style="font-size:0.77rem;color:var(--ink3);">See-a-dog to shared in under 30 seconds. Friction kills the habit.</p></div>
+        </div>
+        <div class="prin">
+          <span class="pno">3</span>
+          <div><p class="display" style="font-size:1rem;">Every interaction is a Pokédex entry</p><p style="font-size:0.77rem;color:var(--ink3);">Satisfying, complete, collectible.</p></div>
+        </div>
+        <div class="prin">
+          <span class="pno">4</span>
+          <div><p class="display" style="font-size:1rem;">The collection is the emotional payoff</p><p style="font-size:0.77rem;color:var(--ink3);">It must feel like a trophy case of every dog ever spotted.</p></div>
+        </div>
+        <div class="prin" style="border-bottom:none;">
+          <span class="pno">5</span>
+          <div><p class="display" style="font-size:1rem;">Breed ID confidence matters</p><p style="font-size:0.77rem;color:var(--ink3);">Show the AI's confidence score, and let the user override.</p></div>
+        </div>
+      </div>
+
+      <!-- Scope -->
+      <div class="sl-scope flex flex-col" style="background:var(--ink);border-radius:1.2rem;padding:1.3rem;">
+        <span class="kick" style="color:oklch(0.6 0.02 64);">Scope boundaries · V1</span>
+        <div class="flex flex-col gap-2.5 mt-3 flex-1">
+          <div class="flex gap-2.5 items-start"><span style="color:var(--ball);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:0.8rem;color:oklch(0.82 0.02 64);line-height:1.45;">One encounter = photo + share + AI breed ID + location + notes = one entry.</p></div>
+          <div class="flex gap-2.5 items-start"><span style="color:var(--ball);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:0.8rem;color:oklch(0.82 0.02 64);line-height:1.45;">Snap → Share is the primary V1 loop. Sharing is first-class, not a future add-on.</p></div>
+          <div class="flex gap-2.5 items-start"><span style="color:var(--ball);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:0.8rem;color:oklch(0.82 0.02 64);line-height:1.45;">Audience is global: every dog lover, not a closed personal diary.</p></div>
+          <div class="flex gap-2.5 items-start"><span style="color:var(--ball);font-weight:800;flex-shrink:0;">✓</span><p style="font-size:0.8rem;color:oklch(0.82 0.02 64);line-height:1.45;">Breed accuracy shown with a confidence score so the user can correct it.</p></div>
+          <div class="flex gap-2.5 items-start"><span style="color:var(--coral);font-weight:800;flex-shrink:0;">✕</span><p style="font-size:0.8rem;color:oklch(0.7 0.02 64);line-height:1.45;">No accounts or multi-device sync in V1. Sharing is lightweight, not a full social network.</p></div>
+        </div>
+        <div style="border-top:1.5px dashed oklch(0.6 0.02 64/0.5);padding-top:0.9rem;margin-top:0.9rem;">
+          <p style="font-size:0.8rem;color:var(--gold);font-weight:700;line-height:1.45;">Tone: joyful, clean, personal. Warm, playful, slightly nerdy. The &ldquo;got it!&rdquo; moment.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

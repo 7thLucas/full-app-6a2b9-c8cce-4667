@@ -1,0 +1,115 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap');
+  .fg{
+    --paper:oklch(0.97 0.015 85);--paper2:oklch(0.935 0.024 82);--paper3:oklch(0.90 0.032 80);
+    --ink:oklch(0.24 0.02 60);--ink2:oklch(0.44 0.02 62);--ink3:oklch(0.60 0.018 64);
+    --ball:oklch(0.86 0.18 128);--ballink:oklch(0.34 0.09 132);
+    --coral:oklch(0.72 0.17 25);--sky:oklch(0.70 0.13 240);--gold:oklch(0.82 0.13 85);
+    --line:oklch(0.85 0.022 72);
+    font-family:'Hanken Grotesk',ui-sans-serif,system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  }
+  .fg *{box-sizing:border-box;}
+  .grain{position:absolute;inset:0;pointer-events:none;z-index:0;
+    background-image:radial-gradient(oklch(0.24 0.02 60/0.06) 1px,transparent 1.4px);
+    background-size:5px 5px;mix-blend-mode:multiply;}
+  .display{font-family:'Baloo 2',ui-rounded,system-ui,sans-serif;font-weight:800;letter-spacing:-0.015em;line-height:0.98;}
+  .kick{font-weight:700;text-transform:uppercase;letter-spacing:0.24em;font-size:0.62rem;}
+  .step{flex:1;border-radius:1rem;padding:1rem;display:flex;flex-direction:column;justify-content:space-between;min-height:0;}
+  .stno{font-family:'Baloo 2';font-weight:800;font-size:1.1rem;}
+  .tag{font-size:0.56rem;font-weight:800;text-transform:uppercase;letter-spacing:0.12em;padding:0.15rem 0.5rem;border-radius:999px;}
+  .mode-landscape .sl-steps{flex-direction:row;}
+  .mode-portrait .sl-steps{flex-direction:column;}
+</style>
+
+<section class="fg w-full h-full overflow-auto relative">
+  <div class="grain"></div>
+  <div class="flex flex-col h-full relative" style="z-index:1;padding:clamp(1.8rem,3.2vw,2.8rem);">
+
+    <!-- Header -->
+    <div class="flex items-end justify-between mb-5">
+      <div>
+        <span class="kick" style="color:var(--ink3);">The Core Loop · Pl. 06</span>
+        <h2 class="display" style="font-size:clamp(1.9rem,3.2vw,2.8rem);margin-top:0.3rem;">Snap → Share, under 30 seconds</h2>
+      </div>
+      <span class="kick" style="color:var(--coral);">Only 2 required taps</span>
+    </div>
+
+    <!-- Six steps -->
+    <div class="sl-steps flex flex-1 gap-2.5 min-h-0">
+
+      <div class="step" style="background:var(--ball);">
+        <div class="flex items-center justify-between">
+          <span style="font-size:1.3rem;">📷</span><span class="stno" style="color:var(--ballink);">01</span>
+        </div>
+        <div>
+          <span class="tag" style="background:var(--ballink);color:var(--ball);">Required</span>
+          <h3 class="display" style="font-size:1.05rem;color:var(--ballink);margin-top:0.5rem;">Open & Snap</h3>
+          <p style="font-size:0.72rem;color:var(--ballink);opacity:0.9;line-height:1.4;margin-top:0.2rem;">Tap the raised center Snap, frame the dog, capture in-app.</p>
+        </div>
+      </div>
+
+      <div class="step" style="background:var(--paper2);border:2px solid var(--line);">
+        <div class="flex items-center justify-between">
+          <span style="font-size:1.3rem;">🤖</span><span class="stno" style="color:var(--ink3);">02</span>
+        </div>
+        <div>
+          <span class="tag" style="background:var(--paper3);color:var(--ink2);">Auto</span>
+          <h3 class="display" style="font-size:1.05rem;margin-top:0.5rem;">Identify</h3>
+          <p style="font-size:0.72rem;color:var(--ink3);line-height:1.4;margin-top:0.2rem;">AI returns the likeliest breed and confidence as the reveal plays.</p>
+        </div>
+      </div>
+
+      <div class="step" style="background:var(--paper2);border:2px solid var(--line);">
+        <div class="flex items-center justify-between">
+          <span style="font-size:1.3rem;">📍</span><span class="stno" style="color:var(--ink3);">03</span>
+        </div>
+        <div>
+          <span class="tag" style="background:oklch(0.70 0.13 240/0.18);color:var(--sky);">Confirm</span>
+          <h3 class="display" style="font-size:1.05rem;margin-top:0.5rem;">Tag location</h3>
+          <p style="font-size:0.72rem;color:var(--ink3);line-height:1.4;margin-top:0.2rem;">Place name suggested from GPS. Declining never blocks the next step.</p>
+        </div>
+      </div>
+
+      <div class="step" style="background:var(--paper2);border:2px solid var(--line);">
+        <div class="flex items-center justify-between">
+          <span style="font-size:1.3rem;">💬</span><span class="stno" style="color:var(--ink3);">04</span>
+        </div>
+        <div>
+          <span class="tag" style="background:var(--paper3);color:var(--ink3);">Optional</span>
+          <h3 class="display" style="font-size:1.05rem;margin-top:0.5rem;">Add notes</h3>
+          <p style="font-size:0.72rem;color:var(--ink3);line-height:1.4;margin-top:0.2rem;">The dog's name, mood, or encounter context. Your call.</p>
+        </div>
+      </div>
+
+      <div class="step" style="background:var(--ink);">
+        <div class="flex items-center justify-between">
+          <span style="font-size:1.3rem;">🚀</span><span class="stno" style="color:var(--gold);">05</span>
+        </div>
+        <div>
+          <span class="tag" style="background:var(--gold);color:var(--ink);">Required</span>
+          <h3 class="display" style="font-size:1.05rem;color:var(--paper);margin-top:0.5rem;">Share</h3>
+          <p style="font-size:0.72rem;color:var(--paper);opacity:0.75;line-height:1.4;margin-top:0.2rem;">One tap broadcasts to map and feed, and stamps your Dogedex at once.</p>
+        </div>
+      </div>
+
+      <div class="step" style="background:linear-gradient(150deg,oklch(0.90 0.09 92),oklch(0.82 0.13 85) 50%,oklch(0.80 0.13 84));">
+        <div class="flex items-center justify-between">
+          <span style="font-size:1.3rem;">🏆</span><span class="stno" style="color:var(--ink);">06</span>
+        </div>
+        <div>
+          <span class="tag" style="background:var(--ink);color:var(--gold);">Payoff</span>
+          <h3 class="display" style="font-size:1.05rem;color:var(--ink);margin-top:0.5rem;">Stamp-to-dex</h3>
+          <p style="font-size:0.72rem;color:var(--ink);opacity:0.85;line-height:1.4;margin-top:0.2rem;">Entry lands with the stamp. Rarity, streak, and any new badge surface.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer note -->
+    <div class="flex items-center gap-3 mt-4" style="background:var(--paper2);border:2px solid var(--line);border-radius:0.9rem;padding:0.75rem 1.1rem;">
+      <span class="kick" style="color:var(--coral);flex-shrink:0;">Fast by design</span>
+      <p style="font-size:0.78rem;color:var(--ink2);line-height:1.45;">Steps 2 to 4 share one review screen so the loop stays fast. Friction kills the habit, so speed of capture is the whole point.</p>
+    </div>
+
+  </div>
+</section>
