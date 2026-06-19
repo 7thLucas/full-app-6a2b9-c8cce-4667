@@ -1,35 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
+/* ── The Field Guide Arcade ──────────────────────────────────────────────
+   A sun-bright collector's almanac that behaves like a reward machine.
+   Warm paper base, saturated play colours, one reward gold. Light is home. */
 @theme {
-  --color-doge-yellow: #F5C518;
-  --color-doge-brown: #8B4513;
-  --color-doge-cream: #FFF8E7;
-  --color-doge-dark: #1A1A2E;
-  --color-doge-card: #16213E;
-  --color-doge-accent: #E94560;
-  --color-doge-green: #00D084;
-  --color-doge-blue: #0F3460;
+  --color-paper: oklch(0.97 0.015 85);
+  --color-paper-2: oklch(0.935 0.024 82);
+  --color-paper-3: oklch(0.9 0.032 80);
+  --color-ink: oklch(0.24 0.02 60);
+  --color-ink-2: oklch(0.44 0.02 62);
+  --color-ink-3: oklch(0.6 0.018 64);
+  --color-ball: oklch(0.86 0.18 128);
+  --color-ballink: oklch(0.34 0.09 132);
+  --color-coral: oklch(0.72 0.17 25);
+  --color-sky: oklch(0.7 0.13 240);
+  --color-gold: oklch(0.82 0.13 85);
+  --color-line: oklch(0.85 0.022 72);
 
-  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  --animate-bounce-gentle: bounce 2s infinite;
-  --animate-shimmer: shimmer 2s linear infinite;
-  --animate-scan: scan 2s linear infinite;
-  --animate-pop-in: pop-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --font-display: "Baloo 2", ui-rounded, system-ui, sans-serif;
+  --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+  --animate-rise-in: rise-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-capture-flip: capture-flip 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-stamp: stamp 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+  --animate-foil: foil-sweep 2.6s linear infinite;
+  --animate-scan: scan 2s ease-in-out infinite;
 }
 
 :root {
-  --background: #1A1A2E;
-  --foreground: #FFFFFF;
+  --background: oklch(0.97 0.015 85);
+  --foreground: oklch(0.24 0.02 60);
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-sans);
   min-height: 100vh;
   max-width: 480px;
   margin: 0 auto;
@@ -37,88 +48,103 @@ body {
   overflow-x: hidden;
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+/* Riso/halftone print grain on the paper surface. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(oklch(0.24 0.02 60 / 0.05) 1px, transparent 1.4px);
+  background-size: 5px 5px;
+  mix-blend-mode: multiply;
+}
+body > * {
+  position: relative;
+  z-index: 1;
 }
 
-@keyframes scan {
-  0% { top: 0%; }
-  100% { top: 100%; }
+/* ── Type helpers ──────────────────────────────────────────────────────── */
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 0.98;
+}
+.kick {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.62rem;
+  color: var(--color-ink-3);
 }
 
-@keyframes pop-in {
-  0% { transform: scale(0); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+/* ── Tactile treatments ────────────────────────────────────────────────── */
+/* Die-cut sticker: thin paper border + soft drop. */
+.sticker {
+  border: 3px solid var(--color-paper);
+  box-shadow: 0 10px 26px -10px oklch(0.24 0.02 60 / 0.35);
 }
-
-@keyframes popIn {
-  0% { transform: scale(0.5); opacity: 0; }
-  70% { transform: scale(1.05); }
-  100% { transform: scale(1); opacity: 1; }
+/* Stamped-ink chip. */
+.stamp {
+  border: 2.5px solid currentColor;
+  border-radius: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
 }
-
-/* Pokédex-style grid shimmer */
-.dogedex-card-shimmer {
+/* Gold-foil shimmer for rare/legendary edges. */
+.foil {
   background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    rgba(255, 255, 255, 0) 100%
+    125deg,
+    oklch(0.9 0.09 92),
+    oklch(0.82 0.13 85) 38%,
+    oklch(0.94 0.06 96) 52%,
+    oklch(0.8 0.13 84) 70%
   );
-  background-size: 200% 100%;
-  animation: shimmer 2s linear infinite;
+  background-size: 200% 200%;
+  animation: var(--animate-foil);
 }
 
-/* Scanner line for camera */
-.scan-line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #F5C518, transparent);
-  animation: scan 2s linear infinite;
-}
-
-/* Dogedex entry style */
+/* Collection / feed entry card on paper. */
 .dex-entry {
-  background: linear-gradient(135deg, #16213E 0%, #0F3460 100%);
-  border: 1px solid rgba(245, 197, 24, 0.2);
-  border-radius: 12px;
-  transition: all 0.2s ease;
+  background: var(--color-paper);
+  border: 2px solid var(--color-line);
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px -14px oklch(0.24 0.02 60 / 0.4);
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.18s ease;
 }
-
 .dex-entry:active {
   transform: scale(0.98);
-  border-color: rgba(245, 197, 24, 0.5);
+  border-color: var(--color-ink);
 }
 
-/* Breed badge */
+/* Breed name badge — stamped ink on paper. */
 .breed-badge {
-  background: linear-gradient(135deg, #F5C518, #E0A800);
-  color: #1A1A2E;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.75rem;
-  padding: 2px 8px;
+  font-size: 0.78rem;
+  padding: 2px 10px;
   border-radius: 9999px;
   display: inline-block;
 }
 
-/* Confidence bar */
+/* Confidence meter. */
 .confidence-bar {
-  height: 4px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.1);
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-paper-3);
   overflow: hidden;
 }
-
 .confidence-fill {
   height: 100%;
-  border-radius: 2px;
-  transition: width 0.5s ease;
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Bottom nav */
+/* Bottom tab bar. */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -126,36 +152,132 @@ body {
   transform: translateX(-50%);
   width: 100%;
   max-width: 480px;
-  background: #0F3460;
-  border-top: 1px solid rgba(245, 197, 24, 0.2);
+  background: oklch(0.97 0.015 85 / 0.92);
+  backdrop-filter: blur(10px);
+  border-top: 2px solid var(--color-line);
   z-index: 50;
 }
 
-/* Camera view */
+/* Camera scan line. */
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-ball), transparent);
+  animation: var(--animate-scan);
+}
+
 .camera-container {
   position: relative;
   background: #000;
   overflow: hidden;
 }
 
-/* Pop-in animation for new entries */
-.pop-in {
-  animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+/* ── Motion ────────────────────────────────────────────────────────────── */
+.rise-in {
+  animation: var(--animate-rise-in);
+}
+.capture-card {
+  animation: var(--animate-capture-flip);
+  transform-origin: center;
+}
+.stamp-pop {
+  animation: var(--animate-stamp);
+}
+/* Press feedback on any tappable element opting in. */
+.pressable {
+  transition: transform 0.12s ease;
+}
+.pressable:active {
+  transform: scale(0.96);
 }
 
-/* Scrollbar */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes capture-flip {
+  0% {
+    opacity: 0;
+    transform: perspective(900px) rotateY(95deg) scale(0.9);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(900px) rotateY(0deg) scale(1);
+  }
+}
+@keyframes stamp {
+  0% {
+    opacity: 0;
+    transform: scale(2.2) rotate(-12deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.92) rotate(-4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-4deg);
+  }
+}
+@keyframes foil-sweep {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 200%;
+  }
+}
+@keyframes scan {
+  0% {
+    top: 4%;
+  }
+  50% {
+    top: 92%;
+  }
+  100% {
+    top: 4%;
+  }
+}
+
+/* Loud moments stay rare; quiet feedback everywhere. Honour the OS setting:
+   drop movement to fades, keep the layout intact. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .foil {
+    animation: none;
+  }
+}
+
+/* Scrollbar. */
 ::-webkit-scrollbar {
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: #1A1A2E;
+  background: var(--color-paper);
 }
 ::-webkit-scrollbar-thumb {
-  background: #0F3460;
+  background: var(--color-line);
   border-radius: 2px;
 }
 
-/* Safe area for mobile */
+/* Safe area above the fixed bottom nav. */
 .pb-safe {
-  padding-bottom: max(80px, env(safe-area-inset-bottom));
+  padding-bottom: max(92px, calc(env(safe-area-inset-bottom) + 84px));
 }

@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import BottomNav from "@/components/BottomNav";
 
 interface Sighting {
@@ -17,252 +16,148 @@ interface Sighting {
   createdAt: string;
 }
 
-export default function HomePage() {
+function timeAgo(iso: string): string {
+  const diff = Date.now() - new Date(iso).getTime();
+  const m = Math.floor(diff / 60000);
+  if (m < 1) return "just now";
+  if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h}h ago`;
+  const d = Math.floor(h / 24);
+  if (d < 7) return `${d}d ago`;
+  return new Date(iso).toLocaleDateString();
+}
+
+function confColor(c: number): string {
+  if (c > 0.7) return "var(--color-ball)";
+  if (c > 0.4) return "var(--color-gold)";
+  return "var(--color-coral)";
+}
+
+export default function FeedPage() {
   const [sightings, setSightings] = useState<Sighting[]>([]);
   const [loading, setLoading] = useState(true);
-  const [view, setView] = useState<"feed" | "dex">("feed");
 
-  const fetchSightings = useCallback(async () => {
+  const fetchFeed = useCallback(async () => {
     try {
-      const res = await fetch("/api/dogedex/sightings");
+      // The Feed is the social heartbeat: only SHARED sightings appear.
+      const res = await fetch("/api/dogedex/sightings?shared=true");
       const json = await res.json();
       if (json.success) setSightings(json.data);
     } catch {
-      // silently fail
+      /* silent */
     } finally {
       setLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    fetchSightings();
-  }, [fetchSightings]);
-
-  // Group by breed for Dex view
-  const breedMap = sightings.reduce<Record<string, Sighting[]>>((acc, s) => {
-    if (!acc[s.breedName]) acc[s.breedName] = [];
-    acc[s.breedName].push(s);
-    return acc;
-  }, {});
-
-  const uniqueBreeds = Object.entries(breedMap).sort((a, b) => b[1].length - a[1].length);
+    fetchFeed();
+  }, [fetchFeed]);
 
   return (
-    <div className="min-h-screen bg-doge-dark text-white">
+    <div className="min-h-screen text-ink">
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-doge-dark/95 backdrop-blur border-b border-doge-yellow/20">
+      <header className="sticky top-0 z-40 bg-paper/90 backdrop-blur border-b-2 border-line">
         <div className="px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">🐾</span>
+          <div className="flex items-center gap-2.5">
+            <span className="w-9 h-9 rounded-xl bg-ball grid place-items-center text-lg">🐕</span>
             <div>
-              <h1 className="text-lg font-bold text-doge-yellow leading-none">Dogedex</h1>
-              <p className="text-xs text-white/40">Gotta pat &apos;em all</p>
+              <h1 className="display text-xl text-ink leading-none">Dogedex</h1>
+              <p className="kick mt-1">Feed · the social heartbeat</p>
             </div>
           </div>
-          <div className="flex items-center gap-1 bg-doge-card rounded-full p-1">
-            <button
-              onClick={() => setView("feed")}
-              className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
-                view === "feed"
-                  ? "bg-doge-yellow text-doge-dark"
-                  : "text-white/60 hover:text-white"
-              }`}
-            >
-              Feed
-            </button>
-            <button
-              onClick={() => setView("dex")}
-              className={`px-3 py-1 rounded-full text-xs font-semibold transition-all ${
-                view === "dex"
-                  ? "bg-doge-yellow text-doge-dark"
-                  : "text-white/60 hover:text-white"
-              }`}
-            >
-              Dogedex
-            </button>
-          </div>
+          <span className="text-xs font-bold text-ink-2">
+            {sightings.length} shared
+          </span>
         </div>
-
-        {/* Stats bar */}
-        {!loading && (
-          <div className="px-4 pb-2 flex gap-4 text-xs text-white/50">
-            <span>
-              <span className="text-doge-yellow font-bold">{sightings.length}</span> sightings
-            </span>
-            <span>
-              <span className="text-doge-yellow font-bold">{uniqueBreeds.length}</span> breeds
-            </span>
-          </div>
-        )}
       </header>
 
       <main className="pb-safe">
         {loading ? (
-          <div className="flex flex-col items-center justify-center py-20 gap-4">
-            <div className="w-12 h-12 border-2 border-doge-yellow/30 border-t-doge-yellow rounded-full animate-spin" />
-            <p className="text-white/40 text-sm">Loading your Dogedex...</p>
+          <div className="flex flex-col items-center justify-center py-24 gap-4">
+            <div className="w-10 h-10 border-2 border-line border-t-ball rounded-full animate-spin" />
+            <p className="text-ink-3 text-sm">Loading the feed…</p>
           </div>
         ) : sightings.length === 0 ? (
-          <EmptyState />
-        ) : view === "feed" ? (
-          <FeedView sightings={sightings} />
+          <EmptyFeed />
         ) : (
-          <DexView uniqueBreeds={uniqueBreeds} />
+          <div className="p-4 space-y-3.5">
+            {sightings.map((s, i) => (
+              <Link key={s._id} href={`/sighting/${s._id}`}>
+                <article
+                  className="dex-entry overflow-hidden rise-in"
+                  style={{ animationDelay: `${Math.min(i, 8) * 60}ms` }}
+                >
+                  {/* Photo */}
+                  <div className="relative aspect-[5/3] bg-paper-3">
+                    {s.photoUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={s.photoUrl} alt={s.breedName} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full grid place-items-center text-5xl">🐶</div>
+                    )}
+                    <span className="absolute top-2.5 left-2.5 breed-badge sticker">{s.breedName}</span>
+                    <span className="absolute top-2.5 right-2.5 stamp text-coral bg-paper/90 text-[0.6rem] px-2 py-1 rotate-[-4deg]">
+                      Shared ✓
+                    </span>
+                  </div>
+
+                  {/* Body */}
+                  <div className="p-3.5">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="display text-base text-ink truncate">
+                        {s.dogName ? `“${s.dogName}”` : s.breedName}
+                      </p>
+                      <span className="text-ink-3 text-xs flex-shrink-0">{timeAgo(s.createdAt)}</span>
+                    </div>
+
+                    {s.location?.label && (
+                      <p className="text-sky text-xs font-semibold mt-1 truncate">📍 {s.location.label}</p>
+                    )}
+
+                    {s.notes && (
+                      <p className="text-ink-2 text-sm mt-2 leading-snug line-clamp-2">{s.notes}</p>
+                    )}
+
+                    <div className="mt-3 flex items-center gap-2">
+                      <div className="confidence-bar flex-1">
+                        <div
+                          className="confidence-fill"
+                          style={{ width: `${Math.round(s.breedConfidence * 100)}%`, background: confColor(s.breedConfidence) }}
+                        />
+                      </div>
+                      <span className="text-ink-3 text-[0.7rem] font-semibold flex-shrink-0">
+                        {Math.round(s.breedConfidence * 100)}% sure
+                      </span>
+                    </div>
+                  </div>
+                </article>
+              </Link>
+            ))}
+          </div>
         )}
       </main>
 
-      <BottomNav active="home" />
+      <BottomNav active="feed" />
     </div>
   );
 }
 
-function EmptyState() {
+function EmptyFeed() {
   return (
-    <div className="flex flex-col items-center justify-center py-24 px-6 text-center">
-      <div className="text-6xl mb-4 animate-bounce-gentle">🐶</div>
-      <h2 className="text-xl font-bold mb-2">Your Dogedex is empty!</h2>
-      <p className="text-white/50 text-sm mb-6">
-        Start snapping dogs to fill your collection. Every breed you spot gets added here.
+    <div className="flex flex-col items-center justify-center py-24 px-8 text-center">
+      <div className="text-6xl mb-4">🐶</div>
+      <h2 className="display text-2xl text-ink mb-2">The feed is quiet</h2>
+      <p className="text-ink-2 text-sm mb-6 max-w-xs leading-relaxed">
+        No shared sightings yet. Snap a dog and share it to start the stream for every dog lover.
       </p>
       <Link
         href="/snap"
-        className="bg-doge-yellow text-doge-dark font-bold px-6 py-3 rounded-full text-sm"
+        className="bg-ball text-ballink font-bold px-6 py-3 rounded-full text-sm pressable display"
       >
         Snap your first dog
       </Link>
-    </div>
-  );
-}
-
-function FeedView({ sightings }: { sightings: Sighting[] }) {
-  return (
-    <div className="p-4 space-y-3">
-      {sightings.map((s, i) => (
-        <Link key={s._id} href={`/sighting/${s._id}`}>
-          <div
-            className="dex-entry overflow-hidden"
-            style={{ animationDelay: `${i * 50}ms` }}
-          >
-            <div className="flex gap-3 p-3">
-              {/* Photo */}
-              <div className="w-20 h-20 rounded-lg overflow-hidden bg-doge-card flex-shrink-0 relative">
-                {s.photoUrl ? (
-                  <img
-                    src={s.photoUrl}
-                    alt={s.breedName}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-3xl">
-                    🐶
-                  </div>
-                )}
-                {s.shared && (
-                  <div className="absolute top-1 right-1 w-4 h-4 bg-doge-green rounded-full flex items-center justify-center">
-                    <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
-                    </svg>
-                  </div>
-                )}
-              </div>
-
-              {/* Info */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between gap-2 mb-1">
-                  <span className="breed-badge truncate max-w-[140px]">{s.breedName}</span>
-                  <span className="text-white/30 text-xs flex-shrink-0">
-                    {new Date(s.createdAt).toLocaleDateString()}
-                  </span>
-                </div>
-
-                {s.dogName && (
-                  <p className="text-white font-medium text-sm truncate">&ldquo;{s.dogName}&rdquo;</p>
-                )}
-
-                {/* Confidence */}
-                <div className="mt-2">
-                  <div className="confidence-bar">
-                    <div
-                      className="confidence-fill"
-                      style={{
-                        width: `${Math.round(s.breedConfidence * 100)}%`,
-                        background:
-                          s.breedConfidence > 0.7
-                            ? "#00D084"
-                            : s.breedConfidence > 0.4
-                            ? "#F5C518"
-                            : "#E94560",
-                      }}
-                    />
-                  </div>
-                  <p className="text-white/30 text-xs mt-0.5">
-                    {Math.round(s.breedConfidence * 100)}% confident
-                  </p>
-                </div>
-
-                {s.location?.label && (
-                  <p className="text-white/40 text-xs mt-1 truncate">
-                    📍 {s.location.label}
-                  </p>
-                )}
-              </div>
-            </div>
-
-            {s.notes && (
-              <div className="px-3 pb-3">
-                <p className="text-white/50 text-xs italic truncate">&ldquo;{s.notes}&rdquo;</p>
-              </div>
-            )}
-          </div>
-        </Link>
-      ))}
-    </div>
-  );
-}
-
-function DexView({
-  uniqueBreeds,
-}: {
-  uniqueBreeds: [string, Sighting[]][];
-}) {
-  return (
-    <div className="p-4">
-      <div className="grid grid-cols-2 gap-3">
-        {uniqueBreeds.map(([breed, sightings], i) => {
-          const best = sightings[0];
-          return (
-            <Link key={breed} href={`/sighting/${best._id}`}>
-              <div
-                className="dex-entry overflow-hidden aspect-square relative"
-                style={{ animationDelay: `${i * 30}ms` }}
-              >
-                {best.photoUrl ? (
-                  <img
-                    src={best.photoUrl}
-                    alt={breed}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center text-4xl bg-doge-card">
-                    🐕
-                  </div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-2">
-                  <p className="text-white font-bold text-xs leading-tight truncate">{breed}</p>
-                  <p className="text-doge-yellow text-xs">×{sightings.length}</p>
-                </div>
-                {/* Dex entry number */}
-                <div className="absolute top-1.5 right-1.5 bg-black/50 rounded px-1 py-0.5">
-                  <span className="text-white/60 text-xs font-mono">
-                    #{String(i + 1).padStart(3, "0")}
-                  </span>
-                </div>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
     </div>
   );
 }

@@ -6,13 +6,12 @@ import Link from "next/link";
 import BottomNav from "@/components/BottomNav";
 import type { MapSighting } from "@/components/SightingsMap";
 
-// Leaflet touches `window`/DOM, so load the map purely client-side.
 const SightingsMap = dynamic(() => import("@/components/SightingsMap"), {
   ssr: false,
   loading: () => (
     <div className="flex flex-col items-center justify-center h-full gap-3">
-      <div className="w-10 h-10 border-2 border-doge-yellow/30 border-t-doge-yellow rounded-full animate-spin" />
-      <p className="text-white/40 text-sm">Loading map...</p>
+      <div className="w-10 h-10 border-2 border-line border-t-ball rounded-full animate-spin" />
+      <p className="text-ink-3 text-sm">Loading map…</p>
     </div>
   ),
 });
@@ -28,7 +27,7 @@ export default function MapPage() {
       const json = await res.json();
       if (json.success) setSightings(json.data);
     } catch {
-      // silently fail
+      /* silent */
     } finally {
       setLoading(false);
     }
@@ -43,41 +42,33 @@ export default function MapPage() {
   );
 
   return (
-    <div className="min-h-screen bg-doge-dark text-white flex flex-col">
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-doge-dark/95 backdrop-blur border-b border-doge-yellow/20">
-        <div className="px-4 py-3 flex items-center gap-2">
-          <span className="text-2xl">🗺️</span>
+    <div className="min-h-screen text-ink flex flex-col">
+      <header className="sticky top-0 z-40 bg-paper/90 backdrop-blur border-b-2 border-line">
+        <div className="px-4 py-3 flex items-center gap-2.5">
+          <span className="w-9 h-9 rounded-xl bg-sky grid place-items-center text-lg">🗺️</span>
           <div>
-            <h1 className="text-lg font-bold text-doge-yellow leading-none">Map</h1>
-            <p className="text-xs text-white/40">Recent shared sightings worldwide</p>
+            <h1 className="display text-xl text-ink leading-none">Map</h1>
+            <p className="kick mt-1">Shared sightings worldwide</p>
           </div>
-          <span className="ml-auto text-xs text-white/50">
-            <span className="text-doge-yellow font-bold">{pinned.length}</span> pinned
-          </span>
+          <span className="ml-auto text-xs font-bold text-ink-2">{pinned.length} pinned</span>
         </div>
       </header>
 
-      {/* Map area fills the space above the bottom nav */}
       <main className="flex-1 relative" style={{ minHeight: 0 }}>
-        <div className="absolute inset-0" style={{ paddingBottom: 80 }}>
+        <div className="absolute inset-0" style={{ paddingBottom: 84 }}>
           {loading ? (
             <div className="flex flex-col items-center justify-center h-full gap-3">
-              <div className="w-10 h-10 border-2 border-doge-yellow/30 border-t-doge-yellow rounded-full animate-spin" />
-              <p className="text-white/40 text-sm">Loading shared sightings...</p>
+              <div className="w-10 h-10 border-2 border-line border-t-ball rounded-full animate-spin" />
+              <p className="text-ink-3 text-sm">Loading shared sightings…</p>
             </div>
           ) : pinned.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full px-6 text-center gap-3">
+            <div className="flex flex-col items-center justify-center h-full px-8 text-center gap-3">
               <div className="text-5xl">📍</div>
-              <h2 className="text-lg font-bold">No pins yet</h2>
-              <p className="text-white/50 text-sm">
-                Share a sighting with a tagged location and it will appear here for
-                every dog lover to see.
+              <h2 className="display text-xl text-ink">No pins yet</h2>
+              <p className="text-ink-2 text-sm max-w-xs leading-relaxed">
+                Share a sighting with a tagged location and it lands here for every dog lover to see.
               </p>
-              <Link
-                href="/snap"
-                className="mt-2 bg-doge-yellow text-doge-dark font-bold px-5 py-2.5 rounded-full text-sm"
-              >
+              <Link href="/snap" className="mt-2 bg-ball text-ballink font-bold px-5 py-2.5 rounded-full text-sm pressable display">
                 Snap a dog
               </Link>
             </div>

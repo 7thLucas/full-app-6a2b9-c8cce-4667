@@ -4,6 +4,12 @@ import axios from "axios";
 import FormData from "form-data";
 import { SightingModel } from "../models/sighting.model.js";
 import { createLogger } from "../../lib/logger.js";
+import { CANONICAL_TOTAL, toCanonicalBreed } from "../../lib/breeds.js";
+import {
+  rarityMeta,
+  computeStreak,
+  computeBadges,
+} from "../../lib/gamification.js";
 
 const logger = createLogger("DogedexRoutes");
 const router = Router();
@@ -150,7 +156,15 @@ router.post(
         shared: false,
       });
 
-      return res.status(201).json({ success: true, data: sighting });
+      // Rarity for the payoff/stamp-to-dex moment: tier from the breed's
+      // global spotting count (this store is the population in an accountless V1).
+      const globalCount = await SightingModel.countDocuments({ breedName });
+      const rarity = rarityMeta(globalCount);
+
+      return res.status(201).json({
+        success: true,
+        data: { ...sighting.toObject(), rarity, canonicalBreed: toCanonicalBreed(breedName) },
+      });
     } catch (err) {
       logger.error("Create sighting failed", err);
       return res.status(500).json({ success: false, message: "Failed to create sighting" });
@@ -179,7 +193,12 @@ router.get("/dogedex/sightings/:id", async (req: Request, res: Response) => {
     if (!sighting) {
       return res.status(404).json({ success: false, message: "Sighting not found" });
     }
-    return res.json({ success: true, data: sighting });
+    const globalCount = await SightingModel.countDocuments({ breedName: sighting.breedName });
+    const rarity = rarityMeta(globalCount);
+    return res.json({
+      success: true,
+      data: { ...sighting, rarity, canonicalBreed: toCanonicalBreed(sighting.breedName) },
+    });
   } catch (err) {
     logger.error("Get sighting failed", err);
     return res.status(500).json({ success: false, message: "Failed to fetch sighting" });
@@ -223,10 +242,13 @@ router.delete("/dogedex/sightings/:id", async (req: Request, res: Response) => {
   }
 });
 
-// GET /api/dogedex/collection — unique breeds spotted
+// GET /api/dogedex/collection — unique breeds spotted, with rarity tier.
+// Rarity is derived from the global spotting count (in an accountless V1 the
+// whole store is the global population), and each breed is mapped to its
+// canonical master-list name where possible.
 router.get("/dogedex/collection", async (_req: Request, res: Response) => {
   try {
-    const breeds = await SightingModel.aggregate([
+    const groups = await SightingModel.aggregate([
       {
         $group: {
           _id: "$breedName",
@@ -239,10 +261,89 @@ router.get("/dogedex/collection", async (_req: Request, res: Response) => {
       },
       { $sort: { firstSeen: -1 } },
     ]);
-    return res.json({ success: true, data: breeds });
+
+    const breeds = groups.map((g) => {
+      const rarity = rarityMeta(g.count);
+      return {
+        breedName: g._id as string,
+        canonicalBreed: toCanonicalBreed(g._id),
+        count: g.count as number,
+        firstSeen: g.firstSeen,
+        lastSeen: g.lastSeen,
+        photoUrl: g.photoUrl as string,
+        sightingId: g.sightingId,
+        tier: rarity.tier,
+        rarityLabel: rarity.label,
+        foil: rarity.foil,
+      };
+    });
+
+    return res.json({ success: true, data: breeds, canonicalTotal: CANONICAL_TOTAL });
   } catch (err) {
     logger.error("Collection failed", err);
     return res.status(500).json({ success: false, message: "Failed to fetch collection" });
+  }
+});
+
+// GET /api/dogedex/stats — gamification summary for the "You" tab:
+// streaks, milestone badges, places mapped, shares, and collection progress.
+router.get("/dogedex/stats", async (_req: Request, res: Response) => {
+  try {
+    const sightings = await SightingModel.find({})
+      .select("breedName createdAt shared location")
+      .lean();
+
+    const totalSightings = sightings.length;
+
+    // Unique breeds + per-breed global counts.
+    const breedCounts = new Map<string, number>();
+    for (const s of sightings) {
+      breedCounts.set(s.breedName, (breedCounts.get(s.breedName) ?? 0) + 1);
+    }
+    const uniqueBreeds = breedCounts.size;
+
+    // Legendary = breeds whose global count puts them in the legendary tier.
+    let legendaryCount = 0;
+    for (const count of breedCounts.values()) {
+      if (rarityMeta(count).tier === "legendary") legendaryCount += 1;
+    }
+
+    const places = new Set<string>();
+    let sharedCount = 0;
+    for (const s of sightings) {
+      if (s.shared) sharedCount += 1;
+      const label = s.location?.label;
+      if (label) places.add(label.trim().toLowerCase());
+    }
+
+    const streak = computeStreak(sightings.map((s) => s.createdAt as Date));
+
+    const badges = computeBadges({
+      uniqueBreeds,
+      totalSightings,
+      legendaryCount,
+      placesCount: places.size,
+      sharedCount,
+      currentStreak: streak.current,
+    });
+
+    return res.json({
+      success: true,
+      data: {
+        totalSightings,
+        uniqueBreeds,
+        canonicalTotal: CANONICAL_TOTAL,
+        legendaryCount,
+        placesCount: places.size,
+        sharedCount,
+        currentStreak: streak.current,
+        longestStreak: streak.longest,
+        badges,
+      },
+    });
+  } catch (err) {
+    logger.error("Stats failed", err);
+    return res.status(500).json({ success: false, message: "Failed to fetch stats" });
   }
 });
 

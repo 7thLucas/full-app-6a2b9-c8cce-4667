@@ -23,8 +23,8 @@ function pawIcon() {
   const html = `
     <div style="
       width:38px;height:38px;border-radius:50% 50% 50% 0;
-      background:#F5C518;transform:rotate(-45deg);
-      border:2px solid #1A1A2E;box-shadow:0 2px 6px rgba(0,0,0,0.5);
+      background:oklch(0.86 0.18 128);transform:rotate(-45deg);
+      border:3px solid #F6F1E2;box-shadow:0 4px 10px rgba(40,30,10,0.35);
       display:flex;align-items:center;justify-content:center;">
       <span style="transform:rotate(45deg);font-size:18px;line-height:1;">🐾</span>
     </div>`;
@@ -87,14 +87,14 @@ export default function SightingsMap({ sightings }: Props) {
           ${
             s.photoUrl
               ? `<img src="${s.photoUrl}" alt="${s.breedName}" style="width:100%;height:110px;object-fit:cover;border-radius:8px;margin-bottom:6px;" />`
-              : `<div style="width:100%;height:110px;display:flex;align-items:center;justify-content:center;font-size:40px;background:#16213E;border-radius:8px;margin-bottom:6px;">🐶</div>`
+              : `<div style="width:100%;height:110px;display:flex;align-items:center;justify-content:center;font-size:40px;background:oklch(0.90 0.032 80);border-radius:8px;margin-bottom:6px;">🐶</div>`
           }
-          <div style="font-weight:700;font-size:13px;color:#1A1A2E;">${s.breedName}</div>
-          ${s.dogName ? `<div style="font-size:12px;color:#444;">"${s.dogName}"</div>` : ""}
-          <div style="font-size:11px;color:#666;margin:2px 0 6px;">📍 ${place}</div>
+          <div style="font-weight:800;font-size:13px;color:oklch(0.24 0.02 60);">${s.breedName}</div>
+          ${s.dogName ? `<div style="font-size:12px;color:oklch(0.44 0.02 62);">"${s.dogName}"</div>` : ""}
+          <div style="font-size:11px;color:oklch(0.60 0.018 64);margin:2px 0 6px;">📍 ${place}</div>
           <button data-sighting-id="${s._id}" style="
-            width:100%;background:#F5C518;color:#1A1A2E;border:none;border-radius:9999px;
-            padding:6px 0;font-size:12px;font-weight:700;cursor:pointer;">
+            width:100%;background:oklch(0.86 0.18 128);color:oklch(0.34 0.09 132);border:none;border-radius:9999px;
+            padding:7px 0;font-size:12px;font-weight:800;cursor:pointer;">
             View sighting
           </button>
         </div>`;
